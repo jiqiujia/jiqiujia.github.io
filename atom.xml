@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-08-31T11:07:17.802Z</updated>
+  <updated>2016-08-31T11:35:13.951Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,25 +16,31 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
-    <link href="http://yoursite.com/2016/08/31/Bilinear%20classifiers%20for%20visual%20recognition_NIPS09/"/>
-    <id>http://yoursite.com/2016/08/31/Bilinear classifiers for visual recognition_NIPS09/</id>
-    <published>2016-08-31T11:07:03.041Z</published>
-    <updated>2016-08-31T11:07:17.802Z</updated>
+    <title>Hello World</title>
+    <link href="http://yoursite.com/2016/08/31/hello-world/"/>
+    <id>http://yoursite.com/2016/08/31/hello-world/</id>
+    <published>2016-08-31T06:30:05.265Z</published>
+    <updated>2016-08-31T11:35:13.951Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Bilinear-classifiers-for-visual-recognition-NIPS09"><a href="#Bilinear-classifiers-for-visual-recognition-NIPS09" class="headerlink" title="Bilinear classifiers for visual recognition_NIPS09"></a>Bilinear classifiers for visual recognition_NIPS09</h1><p>tags： Transfer_Learning Bilinear Factor</p>
-<hr>
-<p>Bilinear模型作为linear模型的泛化版本，一般是为了提升模型的表达能力，但是这篇文章是反过来的：作者把参数$W$分解为一些低秩矩阵，也即“因子”【factor】的积，进而减少参数数量，防止过拟合。<br>具体得说，原本线性SVM的模型是<br>\begin{equation} \label{eq:1}<br>L(W)=\frac{1}{2}Tr(W^TW)+C\sum_nmax(0,1-y_nTr(W^TX_n)<br>\end{equation}<br>$X\in R^{n_y<em>n_x</em>n_f}$, $n_y和n_x$是空间维度，$n_f$是特征维度。为简化讨论，下面固定$n_f=1$<br>通过对W进行低秩分解【这里的秩的约束通过$W_x$和$W_y$的秩不会超过$d$来体现】<br>\begin{equation}<br>W=W_yW^T_x,\ where\ \ W_y\in R^{n_y<em>d}, W_x\in R^{n_x</em>d}<br>\end{equation}<br>这样子对$W$进行分解后的Bilinear SVM可以重新写成<br>\begin{equation}<br>L_(W_y, W_x)=\frac{1}{2}Tr(W_xW_y^TW_yW_x^T)+C\sum_nmax(0, 1-y_nTr(W_xW_y^TX_n))<br>\end{equation}<br>然而这个形式不好优化，我们得把它写成像公式$\ref{eq:1}$的形式，即<br>\begin{equation}<br>L(\tilde{W}_y, W_x)=\frac{1}{2}Tr(\tilde{W}_y^T\tilde{W}_y)+C\sum_nmax(0,1-y_nTr(\tilde{W}_y^T\tilde{X}_n))\<br>where\ \tilde{W}_y=W_yA^{\frac{1}{2}}, \tilde{X}_n=X_nW_xA^{-\frac{1}{2}}, A=W_x^TW_x<br>\end{equation}<br>这是一个biconvex的目标函数，可以用coordinate descent来解<br>如果现在有$M$个任务，每个任务都有不同的数据，那么我们限定所有的任务共享相同的参数空间，即<br>\begin{equation}<br>L(W^1, …, W^M)=\frac{1}{2}\sum_mTr(W^{T}W)+\sum_mC_m\sum_nmax(0, 1-y_n^mTr(W^{T}X_n^m))<br>\end{equation}<br>这个模型还可以扩展成Multilinear的模型<br>其他的SVM模型，如Structural SVM，也可以写成这种形式</p>
-<p>##实验<br>作者使用了行人检测的数据集INRIA-MOTION[1]类的数据集UCF-Sports[2]，使用的是HOG特征和流特征flow feature[1]</p>
-<p>[1] Human detection using oriented histograms of flow and appearance<br>[2] Action MACH a spatio-temporal Maximum Average Correlation Height filter for action recognition</p>
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;Bilinear-classifiers-for-visual-recognition-NIPS09&quot;&gt;&lt;a href=&quot;#Bilinear-classifiers-for-visual-recognition-NIPS09&quot; class=&quot;headerlink&quot;
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
     
     </summary>
     
+    
+      <category term="Hello" scheme="http://yoursite.com/tags/Hello/"/>
     
   </entry>
   
