@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-08-31T12:36:32.466Z</updated>
+  <updated>2016-08-31T12:44:22.007Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="http://yoursite.com/2016/08/31/Bilinear-classifiers-for-visual-recognition-NIPS09/"/>
     <id>http://yoursite.com/2016/08/31/Bilinear-classifiers-for-visual-recognition-NIPS09/</id>
     <published>2016-08-31T11:39:59.000Z</published>
-    <updated>2016-08-31T12:36:32.466Z</updated>
+    <updated>2016-08-31T12:44:22.007Z</updated>
     
-    <content type="html"><![CDATA[<p>Bilinear模型作为linear模型的泛化版本，一般是为了提升模型的表达能力，但是这篇文章是反过来的：作者把参数$W$分解为一些低秩矩阵，也即“因子”【factor】的积，进而减少参数数量，防止过拟合。<br>具体得说，原本线性SVM的模型是<br>\begin{equation} \label{eq:1}<br>L(W)=\frac{1}{2}Tr(W^TW)+C\sum_nmax(0,1-y_nTr(W^TX_n)<br>\end{equation}<br>$X \in R^{n_y*n_x*n_f}$, $n_y$和$n_x$是空间维度，$n_f$是特征维度。为简化讨论，下面固定$n_f=1$<br>通过对W进行低秩分解【这里的秩的约束通过$W_x$和$W_y$的秩不会超过$d$来体现】<br>\begin{equation}<br>W=W_yW^T_x,\ where\ \ W_y\in R^{n_y*d}, W_x\in R^{n_x*d}<br>\end{equation}<br>这样子对$W$进行分解后的Bilinear SVM可以重新写成<br>\begin{equation}<br>L_(W_y, W_x)=\frac{1}{2}Tr(W_xW_y^TW_yW_x^T)+C\sum_nmax(0, 1-y_nTr(W_xW_y^TX_n))<br>\end{equation}<br>然而这个形式不好优化，我们得把它写成像公式$\ref{eq:1}$的形式，即<br>\begin{equation}<br>L(\tilde{W}_y, W_x)=\frac{1}{2}Tr(\tilde{W}_y^T\tilde{W}_y)+C\sum_nmax(0,1-y_nTr(\tilde{W}_y^T\tilde{X}_n))\\<br>where\ \tilde{W}_y=W_yA^{\frac{1}{2}}, \tilde{X}_n=X_nW_xA^{-\frac{1}{2}}, A=W_x^TW_x<br>\end{equation}<br>这是一个biconvex的目标函数，可以用coordinate descent来解<br>如果现在有$M$个任务，每个任务都有不同的数据，那么我们限定所有的任务共享相同的参数空间，即<br>\begin{equation}<br>L(W^1, …, W^M)=\frac{1}{2}\sum_mTr(W^{T}W)+\sum_mC_m\sum_nmax(0, 1-y_n^mTr(W^{T}X_n^m))<br>\end{equation}<br>这个模型还可以扩展成Multilinear的模型<br>其他的SVM模型，如Structural SVM，也可以写成这种形式</p>
+    <content type="html"><![CDATA[<p>Bilinear模型作为linear模型的泛化版本，一般是为了提升模型的表达能力，但是这篇文章是反过来的：作者把参数$W$分解为一些低秩矩阵，也即“因子”【factor】的积，进而减少参数数量，防止过拟合。<br>具体得说，原本线性SVM的模型是<br>\begin{equation} \label{eq:1}<br>L(W)=\frac{1}{2}Tr(W^TW)+C\sum_nmax(0,1-y_nTr(W^TX_n)<br>\end{equation}<br>$X \in R^{n_y_n_x_n_f}$, $n_y$和$n_x$是空间维度，$n_f$是特征维度。为简化讨论，下面固定$n_f=1$<br>通过对W进行低秩分解【这里的秩的约束通过$W_x$和$W_y$的秩不会超过$d$来体现】<br>\begin{equation}<br>W=W_yW^T_x,\ where\ \ W_y\in R^{n_y*d}, W_x\in R^{n_x*d}<br>\end{equation}<br>这样子对$W$进行分解后的Bilinear SVM可以重新写成<br>\begin{equation}<br>L_(W_y, W_x)=\frac{1}{2}Tr(W_xW_y^TW_yW_x^T)+C\sum_nmax(0, 1-y_nTr(W_xW_y^TX_n))<br>\end{equation}<br>然而这个形式不好优化，我们得把它写成像公式$\ref{eq:1}$的形式，即<br>\begin{equation}<br>L(\tilde{W}_y, W_x)=\frac{1}{2}Tr(\tilde{W}_y^T\tilde{W}_y)+C\sum_nmax(0,1-y_nTr(\tilde{W}_y^T\tilde{X}_n))\\<br>where\ \tilde{W}_y=W_yA^{\frac{1}{2}}, \tilde{X}_n=X_nW_xA^{-\frac{1}{2}}, A=W_x^TW_x<br>\end{equation}<br>这是一个biconvex的目标函数，可以用coordinate descent来解<br>如果现在有$M$个任务，每个任务都有不同的数据，那么我们限定所有的任务共享相同的参数空间，即<br>\begin{equation}<br>L(W^1, …, W^M)=\frac{1}{2}\sum_mTr(W^{T}W)+\sum_mC_m\sum_nmax(0, 1-y_n^mTr(W^{T}X_n^m))<br>\end{equation}<br>这个模型还可以扩展成Multilinear的模型<br>其他的SVM模型，如Structural SVM，也可以写成这种形式</p>
 <p></p><h2>实验</h2><br>作者使用了行人检测的数据集INRIA-MOTION[1]类的数据集UCF-Sports[2]，使用的是HOG特征和流特征flow feature[1]<p></p>
 <p>[1] Human detection using oriented histograms of flow and appearance<br>[2] Action MACH a spatio-temporal Maximum Average Correlation Height filter for action recognition</p>
 ]]></content>
