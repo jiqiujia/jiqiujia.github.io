@@ -87,11 +87,12 @@
 
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="K_Augus">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:title" content="categories">
+<meta property="og:url" content="http://yoursite.com/categories/index.html">
 <meta property="og:site_name" content="K_Augus">
+<meta property="og:updated_time" content="2016-09-01T01:36:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="K_Augus">
+<meta name="twitter:title" content="categories">
 
 
 
@@ -109,7 +110,13 @@
   };
 </script>
 
-  <title> K_Augus </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>
+  
+
+  
+    Category | K_Augus
+  
+</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -130,9 +137,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -219,114 +224,20 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/31/Bilinear-classifiers-for-visual-recognition-NIPS09/" itemprop="url">
-                  Bilinear-classifiers-for-visual-recognition-NIPS09
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-08-31T19:39:59+08:00" content="2016-08-31">
-              2016-08-31
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/31/Bilinear-classifiers-for-visual-recognition-NIPS09/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/31/Bilinear-classifiers-for-visual-recognition-NIPS09/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
+      <div class="category-all-page">
+        <div class="category-all-title">
+            No categories
+        </div>
+        <div class="category-all">
           
         </div>
-      </header>
+      </div>
     
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Bilinear模型作为linear模型的泛化版本，一般是为了提升模型的表达能力，但是这篇文章是反过来的：作者把参数$W$分解为一些低秩矩阵，也即“因子”【factor】的积，进而减少参数数量，防止过拟合。<br>具体得说，原本线性SVM的模型是<br>\begin{equation} \label{eq:1}<br>L(W)=\frac{1}{2}Tr(W^TW)+C\sum_nmax(0,1-y_nTr(W^TX_n)<br>\end{equation}<br>$X \in R^{n_y*n_x*n_f}$, $n_y$和$n_x$是空间维度，$n_f$是特征维度。为简化讨论，下面固定$n_f=1$<br>通过对W进行低秩分解【这里的秩的约束通过$W_x$和$W_y$的秩不会超过$d$来体现】<br>\begin{equation}<br>W=W_yW^T_x,\ where\ \ W_y\in R^{n_y*d}, W_x\in R^{n_x*d}<br>\end{equation}<br>这样子对$W$进行分解后的Bilinear SVM可以重新写成<br>\begin{equation}<br>L_(W_y, W_x)=\frac{1}{2}Tr(W_xW_y^TW_yW_x^T)+C\sum_nmax(0, 1-y_nTr(W_xW_y^TX_n))<br>\end{equation}<br>然而这个形式不好优化，我们得把它写成像公式$\ref{eq:1}$的形式，即<br>\begin{equation}<br>L(\tilde{W}_y, W_x)=\frac{1}{2}Tr(\tilde{W}_y^T\tilde{W}_y)+C\sum_nmax(0,1-y_nTr(\tilde{W}_y^T\tilde{X}_n))\\<br>where\ \tilde{W}_y=W_yA^{\frac{1}{2}}, \tilde{X}_n=X_nW_xA^{-\frac{1}{2}}, A=W_x^TW_x<br>\end{equation}<br>这是一个biconvex的目标函数，可以用coordinate descent来解<br>如果现在有$M$个任务，每个任务都有不同的数据，那么我们限定所有的任务共享相同的参数空间，即<br>\begin{equation}<br>L(W)=\frac{1}{2}\sum_mTr(W^{T}W)+\sum_mC_m\sum_nmax(0, 1-y_n^mTr(W^{T}X_n^m))<br>\end{equation}<br>这个模型还可以扩展成Multilinear的模型<br>其他的SVM模型，如Structural SVM，也可以写成这种形式</p>
-<p></p><h2>实验</h2><br>作者使用了行人检测的数据集INRIA-MOTION[1]类的数据集UCF-Sports[2]，使用的是HOG特征和流特征flow feature[1]<p></p>
-<p>[1] Human detection using oriented histograms of flow and appearance<br>[2] Action MACH a spatio-temporal Maximum Average Correlation Height filter for action recognition</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
@@ -334,6 +245,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="categories/index.html"
+           data-title="categories" data-url="http://yoursite.com/categories/index.html">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -530,24 +449,7 @@
       (document.getElementsByTagName('head')[0]
       || document.getElementsByTagName('body')[0]).appendChild(ds);
     })();
-  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
   
     

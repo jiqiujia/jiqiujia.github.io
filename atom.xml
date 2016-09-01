@@ -34,11 +34,11 @@
     </summary>
     
     
+      <category term="Transfer" scheme="http://yoursite.com/tags/Transfer/"/>
+    
       <category term="Bilinear" scheme="http://yoursite.com/tags/Bilinear/"/>
     
       <category term="SVM" scheme="http://yoursite.com/tags/SVM/"/>
-    
-      <category term="Transfer" scheme="http://yoursite.com/tags/Transfer/"/>
     
   </entry>
   
