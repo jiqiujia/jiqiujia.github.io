@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-09-01T02:54:58.713Z</updated>
+  <updated>2016-09-01T02:58:51.535Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="http://yoursite.com/2016/09/01/Domain-Adaptation-from-Multiple-Sources-via-Auxiliary-Classifiers-ICML09/"/>
     <id>http://yoursite.com/2016/09/01/Domain-Adaptation-from-Multiple-Sources-via-Auxiliary-Classifiers-ICML09/</id>
     <published>2016-09-01T02:51:42.000Z</published>
-    <updated>2016-09-01T02:54:58.713Z</updated>
+    <updated>2016-09-01T02:58:51.535Z</updated>
     
-    <content type="html"><![CDATA[<p>这篇文章做的是从多个源领域到单个目标领域的迁移，思想来源于Adaptive SVM[1]，就是使源领域模型参数“适应”到目标领域去。<br>假设现在有s个源领域$D^s=(x_i^s, y_i^s)|_{i=1}^{n_s}，s=1,2,…,P$，目标领域有标记数据$D_l^T=(x_i^T,y_i^T)|_{i=1}^{n_l}$和未标记数据$D_u^T=x_i^T|_{i=n_l+1}^{n_l+n_u}$，我们希望源领域的分类器$f^s(x)$和要学的目标领域分类器$f^T(x)$之间满足这样的关系：<br>\begin{equation}<br>f^T(x)=\sum_s\gamma_sf^s(x)+\Delta f(x)\\<br>s.t. \quad \sum_s\gamma_s=1<br>\end{equation}<br>扰动函数【perturbation function】$\Delta f(x)$用目标领域的标记数据$D_l^T$来学，根据[1]，<br>\begin{equation}<br>\Delta f(x)=\sum_{i=1}^{n_l}\alpha_i^Ty_i^Tk(x_i^T,x)<br>\end{equation}<br>类似地，<br>\begin{equation}<br>f^s(x)=\sum_s\gamma_s\sum_{i=1}^{n_s}\gamma_i^sy_i^sk(x_i^s,x)<br>\end{equation}<br>两者用相同的kernel<br>这样子，目标领域的分类器就变成了一些kernel的加权和<br>然而现在我们还没有考虑到怎么利用未标记的数据，根据manifold约束，在流形上相邻的特征它们的decision value也应该相近。因此作者认为，在domain adaption问题中，对于这些未标记的数据，目标分类器的decision value和与它比较相关的源领域分类器的decision value值也不应该差太远，所以作者提出了这样的一个data-dependent regularizer<br>\begin{equation}<br>\Omega_D(\textbf{f}_u^T)=\frac{1}{2}\sum_{i=n_l+1}^{n_T}\sum_s\gamma_s(f_i^T-f_i^s)^2=\frac{1}{2}\sum_s\gamma_s|\textbf{f}_u^T-\textbf{f}_u^s|^2<br>\end{equation}<br>$\gamma_s$表示目标领域与某个源领域之间的相关程度<br>$\textbf{f}_u^T=[f_{n_{l+1}}^T,…,f_{n_T}^T]’,\ \textbf{f}_u^s=[f_{n_{l+1}}^s, …, f_{n_T}^s]’$<br>所以最后的目标函数是<br>\begin{equation}<br>min_{f^T}\Omega(f^T)+\frac{1}{2}\sum_{i=1}^{n_l}(f_i^T-y_i^T)^2+\Omega_D(\textbf{f}_u^T)<br>\end{equation}<br>其中，$\Omega(f^T)$是目标分类器的参数正则化项<br>最后，作者还提出因为SVR【Support Vector Regression】通常能得到比较稀疏的解，所以还可以再加一个约束项<br>作者最后得出来的对偶形式也没有涉及太多的kernel运算，所以作者认为自己的算法比较scale</p>
+    <content type="html"><![CDATA[<p>这篇文章做的是从多个源领域到单个目标领域的迁移，思想来源于Adaptive SVM[1]，就是使源领域模型参数“适应”到目标领域去。<br><a id="more"></a><br>假设现在有s个源领域$D^s=(x_i^s, y_i^s)|_{i=1}^{n_s}，s=1,2,…,P$，目标领域有标记数据$D_l^T=(x_i^T,y_i^T)|_{i=1}^{n_l}$和未标记数据$D_u^T=x_i^T|_{i=n_l+1}^{n_l+n_u}$，我们希望源领域的分类器$f^s(x)$和要学的目标领域分类器$f^T(x)$之间满足这样的关系：<br>\begin{equation}<br>f^T(x)=\sum_s\gamma_sf^s(x)+\Delta f(x)\\<br>s.t. \quad \sum_s\gamma_s=1<br>\end{equation}<br>扰动函数【perturbation function】$\Delta f(x)$用目标领域的标记数据$D_l^T$来学，根据[1]，<br>\begin{equation}<br>\Delta f(x)=\sum_{i=1}^{n_l}\alpha_i^Ty_i^Tk(x_i^T,x)<br>\end{equation}<br>类似地，<br>\begin{equation}<br>f^s(x)=\sum_s\gamma_s\sum_{i=1}^{n_s}\gamma_i^sy_i^sk(x_i^s,x)<br>\end{equation}<br>两者用相同的kernel<br>这样子，目标领域的分类器就变成了一些kernel的加权和<br>然而现在我们还没有考虑到怎么利用未标记的数据，根据manifold约束，在流形上相邻的特征它们的decision value也应该相近。因此作者认为，在domain adaption问题中，对于这些未标记的数据，目标分类器的decision value和与它比较相关的源领域分类器的decision value值也不应该差太远，所以作者提出了这样的一个data-dependent regularizer<br>\begin{equation}<br>\Omega_D(\textbf{f}_u^T)=\frac{1}{2}\sum_{i=n_l+1}^{n_T}\sum_s\gamma_s(f_i^T-f_i^s)^2=\frac{1}{2}\sum_s\gamma_s|\textbf{f}_u^T-\textbf{f}_u^s|^2<br>\end{equation}<br>$\gamma_s$表示目标领域与某个源领域之间的相关程度<br>$\textbf{f}_u^T=[f_{n_{l+1}}^T,…,f_{n_T}^T]’,\ \textbf{f}_u^s=[f_{n_{l+1}}^s, …, f_{n_T}^s]’$<br>所以最后的目标函数是<br>\begin{equation}<br>min_{f^T}\Omega(f^T)+\frac{1}{2}\sum_{i=1}^{n_l}(f_i^T-y_i^T)^2+\Omega_D(\textbf{f}_u^T)<br>\end{equation}<br>其中，$\Omega(f^T)$是目标分类器的参数正则化项<br>最后，作者还提出因为SVR【Support Vector Regression】通常能得到比较稀疏的解，所以还可以再加一个约束项<br>作者最后得出来的对偶形式也没有涉及太多的kernel运算，所以作者认为自己的算法比较scale</p>
 <p>实验是在TRECVID 2005数据集上进行的</p>
 <hr>
 <p>[1] Crossdomain video concept detection using adaptive SVMs</p>
@@ -30,7 +30,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;这篇文章做的是从多个源领域到单个目标领域的迁移，思想来源于Adaptive SVM[1]，就是使源领域模型参数“适应”到目标领域去。&lt;br&gt;假设现在有s个源领域$D^s=(x_i^s, y_i^s)|_{i=1}^{n_s}，s=1,2,…,P$，目标领域有标记数据$D_l
+      &lt;p&gt;这篇文章做的是从多个源领域到单个目标领域的迁移，思想来源于Adaptive SVM[1]，就是使源领域模型参数“适应”到目标领域去。&lt;br&gt;
     
     </summary>
     
@@ -48,16 +48,16 @@
     <link href="http://yoursite.com/2016/08/31/Bilinear-classifiers-for-visual-recognition-NIPS09/"/>
     <id>http://yoursite.com/2016/08/31/Bilinear-classifiers-for-visual-recognition-NIPS09/</id>
     <published>2016-08-31T11:39:59.000Z</published>
-    <updated>2016-09-01T02:54:35.331Z</updated>
+    <updated>2016-09-01T02:58:57.797Z</updated>
     
-    <content type="html"><![CDATA[<p>Bilinear模型作为linear模型的泛化版本，一般是为了提升模型的表达能力，但是这篇文章是反过来的：作者把参数$W$分解为一些低秩矩阵，也即“因子”【factor】的积，进而减少参数数量，防止过拟合。<br>具体得说，原本线性SVM的模型是<br>\begin{equation} \label{eq:1}<br>L(W)=\frac{1}{2}Tr(W^TW)+C\sum_nmax(0,1-y_nTr(W^TX_n)<br>\end{equation}<br>$X \in R^{n_y*n_x*n_f}$, $n_y$和$n_x$是空间维度，$n_f$是特征维度。为简化讨论，下面固定$n_f=1$<br>通过对W进行低秩分解【这里的秩的约束通过$W_x$和$W_y$的秩不会超过$d$来体现】<br>\begin{equation}<br>W=W_yW^T_x,\ where\ \ W_y\in R^{n_y*d}, W_x\in R^{n_x*d}<br>\end{equation}<br>这样子对$W$进行分解后的Bilinear SVM可以重新写成<br>\begin{equation}<br>L_(W_y, W_x)=\frac{1}{2}Tr(W_xW_y^TW_yW_x^T)+C\sum_nmax(0, 1-y_nTr(W_xW_y^TX_n))<br>\end{equation}<br>然而这个形式不好优化，我们得把它写成像公式$\ref{eq:1}$的形式，即<br>\begin{equation}<br>L(\tilde{W}_y, W_x)=\frac{1}{2}Tr(\tilde{W}_y^T\tilde{W}_y)+C\sum_nmax(0,1-y_nTr(\tilde{W}_y^T\tilde{X}_n))\\<br>where\ \tilde{W}_y=W_yA^{\frac{1}{2}}, \tilde{X}_n=X_nW_xA^{-\frac{1}{2}}, A=W_x^TW_x<br>\end{equation}<br>这是一个biconvex的目标函数，可以用coordinate descent来解<br>如果现在有$M$个任务，每个任务都有不同的数据，那么我们限定所有的任务共享相同的参数空间，即<br>\begin{equation}<br>L(W)=\frac{1}{2}\sum_mTr(W^{T}W)+\sum_mC_m\sum_nmax(0, 1-y_n^mTr(W^{T}X_n^m))<br>\end{equation}<br>这个模型还可以扩展成Multilinear的模型<br>其他的SVM模型，如Structural SVM，也可以写成这种形式</p>
+    <content type="html"><![CDATA[<p>Bilinear模型作为linear模型的泛化版本，一般是为了提升模型的表达能力，但是这篇文章是反过来的：作者把参数$W$分解为一些低秩矩阵，也即“因子”【factor】的积，进而减少参数数量，防止过拟合。<br><a id="more"></a><br>具体得说，原本线性SVM的模型是<br>\begin{equation} \label{eq:1}<br>L(W)=\frac{1}{2}Tr(W^TW)+C\sum_nmax(0,1-y_nTr(W^TX_n)<br>\end{equation}<br>$X \in R^{n_y*n_x*n_f}$, $n_y$和$n_x$是空间维度，$n_f$是特征维度。为简化讨论，下面固定$n_f=1$<br>通过对W进行低秩分解【这里的秩的约束通过$W_x$和$W_y$的秩不会超过$d$来体现】<br>\begin{equation}<br>W=W_yW^T_x,\ where\ \ W_y\in R^{n_y*d}, W_x\in R^{n_x*d}<br>\end{equation}<br>这样子对$W$进行分解后的Bilinear SVM可以重新写成<br>\begin{equation}<br>L_(W_y, W_x)=\frac{1}{2}Tr(W_xW_y^TW_yW_x^T)+C\sum_nmax(0, 1-y_nTr(W_xW_y^TX_n))<br>\end{equation}<br>然而这个形式不好优化，我们得把它写成像公式$\ref{eq:1}$的形式，即<br>\begin{equation}<br>L(\tilde{W}_y, W_x)=\frac{1}{2}Tr(\tilde{W}_y^T\tilde{W}_y)+C\sum_nmax(0,1-y_nTr(\tilde{W}_y^T\tilde{X}_n))\\<br>where\ \tilde{W}_y=W_yA^{\frac{1}{2}}, \tilde{X}_n=X_nW_xA^{-\frac{1}{2}}, A=W_x^TW_x<br>\end{equation}<br>这是一个biconvex的目标函数，可以用coordinate descent来解<br>如果现在有$M$个任务，每个任务都有不同的数据，那么我们限定所有的任务共享相同的参数空间，即<br>\begin{equation}<br>L(W)=\frac{1}{2}\sum_mTr(W^{T}W)+\sum_mC_m\sum_nmax(0, 1-y_n^mTr(W^{T}X_n^m))<br>\end{equation}<br>这个模型还可以扩展成Multilinear的模型<br>其他的SVM模型，如Structural SVM，也可以写成这种形式</p>
 <p></p><h2>实验</h2><br>作者使用了行人检测的数据集INRIA-MOTION[1]类的数据集UCF-Sports[2]，使用的是HOG特征和流特征flow feature[1]<p></p>
 <p>[1] Human detection using oriented histograms of flow and appearance<br>[2] Action MACH a spatio-temporal Maximum Average Correlation Height filter for action recognition</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;Bilinear模型作为linear模型的泛化版本，一般是为了提升模型的表达能力，但是这篇文章是反过来的：作者把参数$W$分解为一些低秩矩阵，也即“因子”【factor】的积，进而减少参数数量，防止过拟合。&lt;br&gt;具体得说，原本线性SVM的模型是&lt;br&gt;\begin{equ
+      &lt;p&gt;Bilinear模型作为linear模型的泛化版本，一般是为了提升模型的表达能力，但是这篇文章是反过来的：作者把参数$W$分解为一些低秩矩阵，也即“因子”【factor】的积，进而减少参数数量，防止过拟合。&lt;br&gt;
     
     </summary>
     
