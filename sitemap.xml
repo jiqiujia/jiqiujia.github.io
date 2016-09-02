@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2016/09/02/Self-Paced-Learning-for-Latent-Variable-Models-NIPS10/</loc>
+    
+    <lastmod>2016-09-02T14:17:25.224Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2016/09/01/Domain-Adaptation-from-Multiple-Sources-via-Auxiliary-Classifiers-ICML09/</loc>
     
     <lastmod>2016-09-01T03:10:24.971Z</lastmod>
