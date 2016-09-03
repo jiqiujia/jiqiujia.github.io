@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-09-03T00:51:58.971Z</updated>
+  <updated>2016-09-03T02:29:03.881Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Expectation Maximization Algorithm</title>
+    <link href="http://yoursite.com/2016/09/03/Expectation-Maximization-Algorithm/"/>
+    <id>http://yoursite.com/2016/09/03/Expectation-Maximization-Algorithm/</id>
+    <published>2016-09-03T02:28:16.000Z</published>
+    <updated>2016-09-03T02:29:03.881Z</updated>
+    
+    <content type="html"><![CDATA[<p>在机器学习的领域里面，我们常常需要用极大似然估计【或极大化后验】的方法去求解一个变量的值<br>\begin{equation}<br>\theta^{MLE}=argmax_{\theta}(\mathcal{L}(\theta))=argmax_{\theta}(ln[p(X|\theta)])<br>\end{equation}<br>然而，当模型中含有隐变量，或者说观测数据不完整时，用极大似然估计往往不能得到一个闭式解【closed-form solution】。EM算法就是一种求解这种含有隐变量模型的迭代算法。</p>
+<a id="more"></a>
+<p>我们用$Z$表示所有的隐变量，$X$表示所有的观察到的变量，$\Theta$表示所有的参数，则log likelihood可以写成：<br>\begin{align}<br>\mathcal{L}(\Theta|X) &amp; = ln(p(X|\Theta))\\<br>&amp;= ln\left(\frac{p(X,Z|\Theta)}{p(Z|X,\Theta)}\right) \\<br>&amp;= ln\left(\frac{p(X,Z|\Theta)}{Q(Z)}*\frac{Q(Z)}{p(Z|X,\Theta)}\right)\\<br>&amp;= ln\left(\frac{p(X,Z|\Theta)}{Q(Z)}\right)+ln\left(\frac{Q(Z)}{p(Z|X,\Theta)}\right)<br>\end{align}<br>两边对Q(Z)这个分布求期望，左边因为不含变量$Z$，所以不会影响：<br>\begin{align}<br>ln(p(X|\Theta)) &amp;= \int_ZQ(Z)ln\left(\frac{p(X,Z|\Theta)}{Q(Z)}\right)+\int_ZQ(Z)ln\left(\frac{Q(Z)}{p(Z|X,\Theta)}\right) \\<br>&amp;= \int_ZQ(Z)ln\left(\frac{p(X,Z|\Theta)}{Q(Z)}\right)+\underbrace{KL(Q(Z)||p(Z|X,\Theta))}_{\ge0} \\<br>&amp;= \mathcal{L}(\Theta,Q)  + KL(Q(Z)||p(Z|X,\Theta)) \\<br>&amp;\ge \mathcal{L}(\Theta,Q)<br>\end{align}<br>也即$L(\Theta,Q)$是$ln(p(X|\Theta))$的下界。引用PRML里的一幅图来形象说明它们之间的关系<br><img src="/uploads/EM.png" alt="EM"><br>所以EM其实是一个Maximize-Maximize的过程【$\Theta^{old}$表示上一次迭代$\Theta$的值】：</p>
+<p><ul><b>在E步，我们固定住$\Theta^{old}$，优化下界【with respect to $Q(Z)$】，这时候下界最大当且仅当KL divergence为0，也即$Q(Z)=p(Z|X,\Theta^{old})$；</b></ul></p>
+<p><ul><b>在M步，我们固定住$Q(Z)$，优化下界【with respect to $\Theta$】，得到$\Theta^{new}$</b></ul><br>这样子，每一步优化下界都在改进，所以EM一定会收敛，但是EM并不保证收敛到最优解<br>另一种证明$ln(p(X|\Theta))\ge F(\Theta, Z)$的方法是利用琴生不等式【Jensen’s Inequality】：<br>\begin{align}<br>ln(p(X|\Theta) &amp;= ln\int_Zp(X,Z|\Theta) \\<br>&amp;= \underbrace{ln\left(\int_Z\frac{p(X,Z|\Theta)}{Q(Z)}Q(Z)\right)}_{lnE_{Q(Z)}[f(Z)]} \\<br>&amp;\ge \underbrace{\int_Zln\left(\frac{p(X,Z|\Theta)}{Q(Z)}\right)Q(Z)}_{E_{Q(Z)}ln[f(Z)]}<br>\end{align}<br>接下来再讲一下M步里怎么优化下界，做完E步后KL divergence那一项变成0，即$Q(Z)=p(Z|X,\Theta^{old})$，所以<br>\begin{align}<br>\mathcal{L}(\Theta|X) &amp;= \mathcal{L}(\Theta, Q) \\<br>&amp;= \int_ZQ(Z)ln\left(\frac{p(X,Z|\Theta)}{Q(Z)}\right) \\<br>&amp;= \underbrace{\int_Zp(Z,X| \Theta^{old})ln(p(X,Z|\Theta))}_{Q(\Theta, \Theta^{old})}-\underbrace{\int_Zp(Z|X, \Theta^{old})ln(p(Z|X, \Theta^{old}))}_{independent\ of\ \Theta}<br>\end{align}<br>也就是我们只需要最大化$Q(\Theta, \Theta^{old})$<br>注意到现在我们要优化的参数$\Theta$只存在于log里面，如果分布$p(X,Z|\Theta)$是一个指数族分布，那么log和exp将会抵消，我们求解起来就会比原来直接求$p(X|\Theta)$简单得多<br>类似地，EM也可以用来做极大后验估计：<br>\begin{align}<br>ln(p(\Theta|X) &amp;= ln(p(\Theta,X))-ln(p(X)) \\<br>&amp;= ln(p(X|\Theta)) + ln(p(\Theta)) - ln(p(X))<br>\end{align}<br>对$ln(p(X|\Theta))$做和上面一样的分解即可</p>
+<p>##”Tagare” approach<br>另一种证明EM会收敛的方法，大同小异<br>\begin{align}<br>\mathcal{L}(\Theta|X) &amp;= ln(p(X|\Theta)) \\<br>&amp;= ln\left(\frac{p(X,Z|\Theta)}{p(Z|X,\Theta)}\right) \\<br>\end{align}<br>\begin{align}<br>&amp;\Rightarrow \int_zln(p(X|\Theta))p(Z|X, \Theta^{old}) \\<br>&amp;= \int_Zln(p(Z,X|\Theta))p(Z|X, \Theta^{old})dZ-\int_Zln(p(Z|X,\Theta))p(Z|X, \Theta^{old})dZ<br>\end{align}<br>\begin{align}<br>&amp;\Rightarrow ln(p(X|\Theta))\\<br>&amp;= \underbrace{\int_Zp(Z,X| \Theta^{old})ln(p(X,Z|\Theta))}_{Q(\Theta, \Theta^{old})}-\underbrace{\int_Zp(Z|X, \Theta^{old})ln(p(Z|X, \Theta))}_{H(\Theta, \Theta^{old})}<br>\end{align}<br>我们只maximize $Q(\Theta, \Theta^{old})$，因为可以证明<br>\begin{equation}<br>argmax_{\Theta}Q(\Theta, \Theta^{old})=\Theta^{new} \Rightarrow H(\Theta^{new}, \Theta^{old}) \le H(\Theta^{old}, \Theta^{old})<br>\end{equation}<br>这样子，我们就有<br>\begin{equation}<br>\mathcal{L}(\Theta^{new})=Q(\Theta^{new}, \Theta^{old})-H(\Theta^{new}, \Theta^{old}) \ge Q(\Theta^{old}, \Theta^{old})-H(\Theta^{old}, \Theta^{old}) = \mathcal{L}(\Theta^{old})<br>\end{equation}<br>可以用琴生不等式证明$H(\Theta^{old}, \Theta^{old})-H(\Theta, \Theta^{old}) \ge 0\quad \forall\Theta$</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在机器学习的领域里面，我们常常需要用极大似然估计【或极大化后验】的方法去求解一个变量的值&lt;br&gt;\begin{equation}&lt;br&gt;\theta^{MLE}=argmax_{\theta}(\mathcal{L}(\theta))=argmax_{\theta}(ln[p(X|\theta)])&lt;br&gt;\end{equation}&lt;br&gt;然而，当模型中含有隐变量，或者说观测数据不完整时，用极大似然估计往往不能得到一个闭式解【closed-form solution】。EM算法就是一种求解这种含有隐变量模型的迭代算法。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Tutorial" scheme="http://yoursite.com/categories/Tutorial/"/>
+    
+    
+      <category term="EM" scheme="http://yoursite.com/tags/EM/"/>
+    
+      <category term="Tutorial" scheme="http://yoursite.com/tags/Tutorial/"/>
+    
+      <category term="Latent" scheme="http://yoursite.com/tags/Latent/"/>
+    
+  </entry>
   
   <entry>
     <title>Self-Paced Learning for Latent Variable Models_NIPS10</title>
@@ -39,9 +71,9 @@
     
       <category term="NIPS" scheme="http://yoursite.com/tags/NIPS/"/>
     
-      <category term="SelfPacedLearning" scheme="http://yoursite.com/tags/SelfPacedLearning/"/>
-    
       <category term="Latent" scheme="http://yoursite.com/tags/Latent/"/>
+    
+      <category term="SelfPacedLearning" scheme="http://yoursite.com/tags/SelfPacedLearning/"/>
     
   </entry>
   
