@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-09-03T02:31:21.213Z</updated>
+  <updated>2016-09-04T14:10:12.813Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Self-Paced Learning with Diversity_NIPS14.md</title>
+    <link href="http://yoursite.com/2016/09/04/Self-Paced-Learning-with-Diversity-NIPS14-md/"/>
+    <id>http://yoursite.com/2016/09/04/Self-Paced-Learning-with-Diversity-NIPS14-md/</id>
+    <published>2016-09-04T14:09:31.000Z</published>
+    <updated>2016-09-04T14:10:12.813Z</updated>
+    
+    <content type="html"><![CDATA[<p>这一篇文章的思想其实很简单，就是让SPL在选择样本的时候不单单只考虑样本的难易程度，还要考虑样本的多样性。这个多样性通过group lasso的优化项来体现。</p>
+<a id="more"></a>
+<p>首先，我们的样本$X=(x_1,…,x_n) \in R^{m_n}$被分成$b$组：$X^{(1)},…,X^{(b)},X^{(j)}\in R^{m_n_j}$，$n_j$是第$j$组的样本数目；这个分组要么是给定的，要么可以用一些无监督的方法，比如聚类得到；相应的定义每个组的难易度系数向量$v=[v^{(1)},…,v^{(b)}],\ v^{(j)}=(v^{(j)}_1,…,v^{(j)}_{n_j})^T\in [0,1]^{n_j}$。这样子得到我们新的优化模型：<br>\begin{equation}<br>min_{w,v}E(w,v;\lambda, \gamma)=\sum_{i=1}^nv_iL(y_i,f(x_i,w))-\lambda\sum_{i=1}^nv_i-\gamma|v|_{2,1},\quad s.t. v\in[0,1]^n<br>\end{equation}<br>这里新引入的负$l_{2,1}-norm$项就是为了得到样本的多样性。具体得<br>$$-|v|_{2,1}=-\sum_{j=1}^b|v^{(j)}|_2$$<br>本来$l_{2,1}-norm$是为了得到组稀疏的，现在加了个负号，就能得到和组稀疏相反的效果，也即多样性。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这一篇文章的思想其实很简单，就是让SPL在选择样本的时候不单单只考虑样本的难易程度，还要考虑样本的多样性。这个多样性通过group lasso的优化项来体现。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="SelfPacedLearning" scheme="http://yoursite.com/categories/SelfPacedLearning/"/>
+    
+    
+      <category term="NIPS" scheme="http://yoursite.com/tags/NIPS/"/>
+    
+      <category term="SelfPacedLearning" scheme="http://yoursite.com/tags/SelfPacedLearning/"/>
+    
+  </entry>
   
   <entry>
     <title>Expectation Maximization Algorithm</title>
