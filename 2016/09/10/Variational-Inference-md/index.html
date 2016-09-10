@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Transfer,SVM,ICML," />
+  <meta name="keywords" content="Tutorial,Bayesian," />
 
 
 
@@ -86,16 +86,18 @@
 
 
 
-<meta name="description" content="这篇文章做的是从多个源领域到单个目标领域的迁移，思想来源于Adaptive SVM[1]，就是使源领域模型参数“适应”到目标领域去。">
+<meta name="description" content="1. 背景在概率模型中，我们常常需要得到隐变量的后验分布或者计算相对于某个分布的期望，比如在EM算法中我们需要得到隐变量$Z$的后验分布，以及计算完全数据的似然分布相对于隐变量的后验分布的期望。然而对于很多现实中的模型，常常因为隐变量的维度过高，难以计算；或者期望太过复杂，没有闭式解。这时候我们就要寻求近似解。近似解大体上分为两种，一种是stochastic approximation，如MCMC">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Domain Adaptation from Multiple Sources via Auxiliary Classifiers_ICML09">
-<meta property="og:url" content="http://yoursite.com/2016/09/01/Domain-Adaptation-from-Multiple-Sources-via-Auxiliary-Classifiers-ICML09/index.html">
+<meta property="og:title" content="Variational Inference">
+<meta property="og:url" content="http://yoursite.com/2016/09/10/Variational-Inference-md/index.html">
 <meta property="og:site_name" content="K_Augus">
-<meta property="og:description" content="这篇文章做的是从多个源领域到单个目标领域的迁移，思想来源于Adaptive SVM[1]，就是使源领域模型参数“适应”到目标领域去。">
-<meta property="og:updated_time" content="2016-09-01T03:10:24.971Z">
+<meta property="og:description" content="1. 背景在概率模型中，我们常常需要得到隐变量的后验分布或者计算相对于某个分布的期望，比如在EM算法中我们需要得到隐变量$Z$的后验分布，以及计算完全数据的似然分布相对于隐变量的后验分布的期望。然而对于很多现实中的模型，常常因为隐变量的维度过高，难以计算；或者期望太过复杂，没有闭式解。这时候我们就要寻求近似解。近似解大体上分为两种，一种是stochastic approximation，如MCMC">
+<meta property="og:image" content="http://yoursite.com/uploads/Variational_Inference.png">
+<meta property="og:updated_time" content="2016-09-10T14:43:05.372Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Domain Adaptation from Multiple Sources via Auxiliary Classifiers_ICML09">
-<meta name="twitter:description" content="这篇文章做的是从多个源领域到单个目标领域的迁移，思想来源于Adaptive SVM[1]，就是使源领域模型参数“适应”到目标领域去。">
+<meta name="twitter:title" content="Variational Inference">
+<meta name="twitter:description" content="1. 背景在概率模型中，我们常常需要得到隐变量的后验分布或者计算相对于某个分布的期望，比如在EM算法中我们需要得到隐变量$Z$的后验分布，以及计算完全数据的似然分布相对于隐变量的后验分布的期望。然而对于很多现实中的模型，常常因为隐变量的维度过高，难以计算；或者期望太过复杂，没有闭式解。这时候我们就要寻求近似解。近似解大体上分为两种，一种是stochastic approximation，如MCMC">
+<meta name="twitter:image" content="http://yoursite.com/uploads/Variational_Inference.png">
 
 
 
@@ -113,7 +115,7 @@
   };
 </script>
 
-  <title> Domain Adaptation from Multiple Sources via Auxiliary Classifiers_ICML09 | K_Augus </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> Variational Inference | K_Augus </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -243,7 +245,7 @@
             
             
               
-                Domain Adaptation from Multiple Sources via Auxiliary Classifiers_ICML09
+                Variational Inference
               
             
           </h1>
@@ -255,8 +257,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Veröffentlicht am</span>
-            <time itemprop="dateCreated" datetime="2016-09-01T10:51:42+08:00" content="2016-09-01">
-              2016-09-01
+            <time itemprop="dateCreated" datetime="2016-09-10T22:42:01+08:00" content="2016-09-10">
+              2016-09-10
             </time>
           </span>
 
@@ -269,8 +271,8 @@
               <span class="post-meta-item-text">in</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/TransferLearning/" itemprop="url" rel="index">
-                    <span itemprop="name">TransferLearning</span>
+                  <a href="/categories/Tutorial/" itemprop="url" rel="index">
+                    <span itemprop="name">Tutorial</span>
                   </a>
                 </span>
 
@@ -285,8 +287,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/01/Domain-Adaptation-from-Multiple-Sources-via-Auxiliary-Classifiers-ICML09/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/01/Domain-Adaptation-from-Multiple-Sources-via-Auxiliary-Classifiers-ICML09/" itemprop="commentsCount"></span>
+                <a href="/2016/09/10/Variational-Inference-md/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/10/Variational-Inference-md/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -314,10 +316,18 @@
       
 
       
-        <p>这篇文章做的是从多个源领域到单个目标领域的迁移，思想来源于Adaptive SVM[1]，就是使源领域模型参数“适应”到目标领域去。<br><a id="more"></a><br>假设现在有s个源领域$D^s=(x_i^s, y_i^s)|_{i=1}^{n_s}，s=1,2,…,P$，目标领域有标记数据$D_l^T=(x_i^T,y_i^T)|_{i=1}^{n_l}$和未标记数据$D_u^T=x_i^T|_{i=n_l+1}^{n_l+n_u}$，我们希望源领域的分类器$f^s(x)$和要学的目标领域分类器$f^T(x)$之间满足这样的关系：<br>\begin{equation}<br>f^T(x)=\sum_s\gamma_sf^s(x)+\Delta f(x)\\<br>s.t. \quad \sum_s\gamma_s=1<br>\end{equation}<br>扰动函数【perturbation function】$\Delta f(x)$用目标领域的标记数据$D_l^T$来学，根据[1]，<br>\begin{equation}<br>\Delta f(x)=\sum_{i=1}^{n_l}\alpha_i^Ty_i^Tk(x_i^T,x)<br>\end{equation}<br>类似地，<br>\begin{equation}<br>f^s(x)=\sum_s\gamma_s\sum_{i=1}^{n_s}\gamma_i^sy_i^sk(x_i^s,x)<br>\end{equation}<br>两者用相同的kernel<br>这样子，目标领域的分类器就变成了一些kernel的加权和<br>然而现在我们还没有考虑到怎么利用未标记的数据，根据manifold约束，在流形上相邻的特征它们的decision value也应该相近。因此作者认为，在domain adaption问题中，对于这些未标记的数据，目标分类器的decision value和与它比较相关的源领域分类器的decision value值也不应该差太远，所以作者提出了这样的一个data-dependent regularizer<br>\begin{equation}<br>\Omega_D(\textbf{f}_u^T)=\frac{1}{2}\sum_{i=n_l+1}^{n_T}\sum_s\gamma_s(f_i^T-f_i^s)^2=\frac{1}{2}\sum_s\gamma_s|\textbf{f}_u^T-\textbf{f}_u^s|^2<br>\end{equation}<br>$\gamma_s$表示目标领域与某个源领域之间的相关程度<br>$\textbf{f}_u^T=[f_{n_{l+1}}^T,…,f_{n_T}^T]’,\ \textbf{f}_u^s=[f_{n_{l+1}}^s, …, f_{n_T}^s]’$<br>所以最后的目标函数是<br>\begin{equation}<br>min_{f^T}\Omega(f^T)+\frac{1}{2}\sum_{i=1}^{n_l}(f_i^T-y_i^T)^2+\Omega_D(\textbf{f}_u^T)<br>\end{equation}<br>其中，$\Omega(f^T)$是目标分类器的参数正则化项<br>最后，作者还提出因为SVR【Support Vector Regression】通常能得到比较稀疏的解，所以还可以再加一个约束项<br>作者最后得出来的对偶形式也没有涉及太多的kernel运算，所以作者认为自己的算法比较scale</p>
-<p>实验是在TRECVID 2005数据集上进行的</p>
+        <h2>1. 背景</h2><br>在概率模型中，我们常常需要得到隐变量的后验分布或者计算相对于某个分布的期望，比如在EM算法中我们需要得到隐变量$Z$的后验分布，以及计算完全数据的似然分布相对于隐变量的后验分布的期望。然而对于很多现实中的模型，常常因为隐变量的维度过高，难以计算；或者期望太过复杂，没有闭式解。这时候我们就要寻求近似解。近似解大体上分为两种，一种是stochastic approximation，如MCMC；另一种是deterministic approximation，比如我们这篇文章要讲的变分推断。<br><br>变分法最早来源于微积分，因为涉及到函数空间，所以叫变分。变分法的核心思想，就是从某个函数空间中找到满足某些条件或约束的函数。我们在统计推断中用到的变分法，实际上就是用形式简单的分布，去近似形式复杂、不易计算的分布，这样再做积分运算就会容易的多。<br><br><a id="more"></a><br><br><br>———-<br><br><h2>2. 基础推导</h2><br>跟EM里的推导一样，似然函数可以推导成一个下界加上一个相对熵的形式：<br>\begin{align}<br>ln(p(X)) &amp;= ln\left(\frac{p(X,Z)}{q(Z)}\right) - ln\left(\frac{p(Z|X)}{q(Z)}\right) \\<br>&amp;=\int q(Z)ln\left(\frac{p(X,Z)}{q(Z)}\right)dZ - \int q(Z)ln\left(\frac{p(Z|X)}{q(Z)}\right)dZ \\<br>&amp;=\underbrace{\int q(Z)ln(p(X,Z))dZ - \int q(Z)ln(q(Z))dZ}_{\mathcal{L}(q)} + \underbrace{\left(-int q(Z)ln\left(\frac{p(Z|X)}{q(Z)}\right)dZ\right)}_{KL(q||p)} \\<br>&amp;= \mathcal{L}(q) + KL(q||p)<br>\end{align}<br>这里的形式跟EM不同的是参数$\Theta$也包含到了随机变量$Z$里。$\mathcal{L}(q)$叫做Evidence Lower Bound(ELOB)，因为相对熵是恒不小于0的。$mathcal{L}$是关于函数$q(Z)$的泛函【functional】<br>不同于EM，这里$p(Z|X)$是intractable的，所以在最小化KL divergence的时候，我们需要限制$q(Z)$可选的分布类型——既要tractable，也能提供一个好的approximation。而且，这里不会有”over-fitting”，因为越逼近真实的后验分布越好<br><br>———-<br><br><h2>3. Mean field</h2><br>常用的是限制$q(Z)$为可分解的分布【factorized distributions】，将$Z$分解为$M$组变量$Z_i$，即<br>\begin{equation}<br>q(Z) = \prod_{i=1}^Mq_i(Z_i)<br>\end{equation}<br>这个分解通常与模型相关。在物理上，这种形式的变分推断被称为mean filed theory。<br>将上式的分解代入到$\mathcal{L}(q)$，为了让表达更加简洁明了，用$q_i$表示$q_i(Z_i)$：<br>\begin{align}<br>\mathcal{L}(q) &amp;= \int q(Z)ln(p(X,Z))dZ - \int q(Z)ln(q(Z))dZ \\<br>&amp;= \underbrace{\int \prod_{i=1}^Mq_iln(p(X,Z))dZ}_{part (1)} - \underbrace{\int \prod_{i=1}^Mq_i\sum_{i=1}^Mlnq_idZ}_{part (2)}<br>\end{align}<br><br>\begin{align}<br>(Part\ 1) &amp;= \int \prod_{i=1}^Mq_iln(p(X,Z))dZ \\<br>&amp;= \int_{Z_1}\ldots\int_{Z_M}\prod_{i=1}^Mq_iln(p(X,Z))dZ_1,…,dZ_M \\<br>&amp;= \int_{Z_j}q_j\left(\int_{Z_{i\neq j}}\prod_{i\neq j}^Mq_iln(p(X,Z))\prod_{i\neq j}^MdZ_i\right)dZ_j \\<br>&amp;= \int_{Z_j}q_j\left(\int_{Z_{i\neq j}}ln(p(X,Z))\prod_{i\neq j}^Mq_idZ_i\right)dZ_j \\<br>&amp;= \int_{Z_j}q_j(Z_j)[E_{i\neg j}[ln(p(X,Z))]]dZ_j<br>\end{align}<br><br>\begin{align}<br>(Part\ 2) &amp;= \int \prod_{i=1}^Mq_i\sum_{i=1}^Mln(q_i)dZ \\<br>&amp;= \sum_{j=1}^M\left(\int_{Z_j}q_jln(q_j)\left(\int_{Z_{i\neq j}}\prod_{Z_{i\neg j}}q_idZ_{i\neq j}\right)dZ_j\right) \\<br>&amp;= \sum_{j=1}^M\int_{Z_j}q_jln(q_j)dZ_j<br>\end{align}<br>所以，对于某个特定的$q_j$：<br>\begin{align}<br>\mathcal{L}(q) &amp;= \int_{Z_j}q_j\underbrace{[E_{i\neg j}[ln(p(X,Z))]]}_{ln(\tilde{p}_j(X,Z_j))}dZ_j - \int_{Z_j}q_jln(q_j)dZ_j + \underbrace{const}_{terms\ not\ involve\ q_j} \\<br>&amp;= \int_{Z_j}q_jln\frac{ln(\tilde{p}_j(X,Z_j))}{q_j} + const<br>\end{align}<br>这也是一个负的KL divergence，所以我们可以通过最小化这个KL divergence来最大化$\mathcal{L}(q)$，这时最优的$q^__j$满足<br>\begin{equation}<br>ln(q_j^_) = E_{i\neg j}[ln(p(X,Z))]<br>\end{equation}<br>这条式子的意思是：因子$q_j$最优解的log为完全数据【观测变量和隐变量】的log联合分布相对于其他因子$q_i,  i\neq j$的期望——这是变分推断的基础。通常我们不需要考虑const那一项，因为const项就是归一化项，归一化项通常可以通过观察得到。<br>我们用坐标下降的方法迭代更新每个因子直到收敛。因为下界对于每个因子都是凸的，所以这个过程保证收敛。<br><br><br>———-<br><h2>4. $KL(p||q)\ vs \ KL(q||p)$</h2><br>上面用的优化是$KL(q||p)$，现在考虑一般情况下用可分解的$q(Z)$最小化$KL(p||q)$的问题：<br>\begin{equation}<br>KL(p||q)=-\int p(Z)\left[\sum_{i=1}^Mln(q_i)\right]dZ+\underbrace{\int p(Z)lnp(Z)dZ}_{const}<br>\end{equation}<br>像上面一样只考虑对某个因子$q_j$做优化，则<br>\begin{align}<br>KL(p||q) &amp;= -\int p(Z)\left[\sum_{i=1}^Mln(q_i)\right]dZ+const \\<br>&amp;= -\int\left(p(Z)ln(q_j)+p(Z)\sum_{i\neg j}ln(q_i)\right)dZ + const \\<br>&amp;= -\int p(Z)ln(q_j)dZ + const \\<br>&amp;= -\int ln(q_j)\underbrace{\left[\int p(Z)\prod_{i\neg j}dZ_i\right]}_{F_j(Z_j)}dZ_j + const \\<br>&amp;= -\int F_j(Z_j)ln(q_j)dZ_j + const<br>\end{align}<br>用拉格朗日乘子法约束$q_j$为一个分布：<br>\begin{equation}<br>-\int F_j(Z_j)ln(q_j)dZ_j + \lambda\left(\int q_jdZ_j -1\right)<br>\end{equation}<br>用变分法的欧拉-拉格朗日方程求解可以得到<br>\begin{equation}<br>-\frac{F_j(Z_j)}{q_j}+\lambda = 0<br>\end{equation}<br>也即<br>\begin{equation}<br>\lambda q_j = F_j(Z_j)<br>\end{equation}<br>两边对$Z_j$积分，可得<br>\begin{equation}<br>\lambda=\int F_j(Z_j)dZ_j=1<br>\end{equation}<br>所以<br>\begin{equation}<br>q_j = F_j(Z_j) = \int p(Z)\prod_{i\neg j}dZ_i = p(Z_j)<br>\end{equation}<br>就是说，在优化$KL(p||q)$的情况下，因子$q_j$的最优解有刚好就是相应的边缘分布$p(Z_j)$<br>PRML里的一幅图描述了对二元高斯分布分别用$KL(q||p)$和$KL(p||q)$优化的结果<br><img src="/uploads/Variational_Inference.png" alt="Variational Inference"><br>左边是$KL(q||p)$，右边是$KL(p||q)$，两种情况下都能很好得拟合均值，然而对于整体分布的拟合情况确有很大差别。这可以从KL divergence的式子里直接考虑<br>\begin{equation}<br>KL(q||p)=-\int q(Z)ln\frac{p(Z)}{q(Z)}dZ<br>\end{equation}<br>这里对值影响比较大的部分主要来自$ln$相除的那部分。对于$KL(q||p)$，在$p(Z)$比较小的地方$q(Z)$也得比较小，不然的话一除，再ln，这个值就会非常大，这叫”zero forcing”；相反，对于$KL(p||q)$的情况，在$p(Z)$比较大的地方，$q(Z)$也得比较大，这种情况叫”zero avoiding”。这就造成了上图左边只在高密度区域有值，而右边则是整体上都有值的结果。<br><br><br>———-<br><h2>5. 极大似然、EM与变分</h2>
+
+
 <hr>
-<p>[1] Crossdomain video concept detection using adaptive SVMs</p>
+<h2>6. 指数分布族与变分</h2>
+
+
+<hr>
+<h2>7. Expectation Propagation</h2>
+
+
+<hr>
 
       
     </div>
@@ -339,11 +349,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Transfer/" rel="tag">#Transfer</a>
+            <a href="/tags/Tutorial/" rel="tag">#Tutorial</a>
           
-            <a href="/tags/SVM/" rel="tag">#SVM</a>
-          
-            <a href="/tags/ICML/" rel="tag">#ICML</a>
+            <a href="/tags/Bayesian/" rel="tag">#Bayesian</a>
           
         </div>
       
@@ -352,17 +360,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/31/Bilinear-classifiers-for-visual-recognition-NIPS09/" rel="next" title="Bilinear classifiers for visual recognition_NIPS09">
-                <i class="fa fa-chevron-left"></i> Bilinear classifiers for visual recognition_NIPS09
+              <a href="/2016/09/04/Self-Paced-Learning-with-Diversity-NIPS14-md/" rel="next" title="Self-Paced Learning with Diversity_NIPS14.md">
+                <i class="fa fa-chevron-left"></i> Self-Paced Learning with Diversity_NIPS14.md
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/09/02/Self-Paced-Learning-for-Latent-Variable-Models-NIPS10/" rel="prev" title="Self-Paced Learning for Latent Variable Models_NIPS10">
-                Self-Paced Learning for Latent Variable Models_NIPS10 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -388,8 +392,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/09/01/Domain-Adaptation-from-Multiple-Sources-via-Auxiliary-Classifiers-ICML09/"
-           data-title="Domain Adaptation from Multiple Sources via Auxiliary Classifiers_ICML09" data-url="http://yoursite.com/2016/09/01/Domain-Adaptation-from-Multiple-Sources-via-Auxiliary-Classifiers-ICML09/">
+      <div class="ds-thread" data-thread-key="2016/09/10/Variational-Inference-md/"
+           data-title="Variational Inference" data-url="http://yoursite.com/2016/09/10/Variational-Inference-md/">
       </div>
     
   </div>
@@ -498,7 +502,7 @@
               
             
             
-              <p class="post-toc-empty">Dieser Artikel hat kein Inhaltsverzeichnis</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">1. 背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">2. 基础推导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">3. Mean field</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">4. $KL(p||q)\ vs \ KL(q||p)$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">5. 极大似然、EM与变分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">6.</span> <span class="nav-text">6. 指数分布族与变分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">7.</span> <span class="nav-text">7. Expectation Propagation</span></a></li></ol></div>
             
           </div>
         </section>
