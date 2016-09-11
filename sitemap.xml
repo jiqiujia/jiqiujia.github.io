@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2016/09/11/Distilling-the-Knowledge-in-a-Neural-Network/</loc>
+    
+    <lastmod>2016-09-11T12:09:32.934Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2016/09/10/Variational-Inference/</loc>
     
     <lastmod>2016-09-10T14:46:20.536Z</lastmod>
@@ -16,7 +23,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2016/09/04/Self-Paced-Learning-with-Diversity-NIPS14-md/</loc>
+    <loc>http://yoursite.com/2016/09/04/Self-Paced-Learning-with-Diversity-NIPS14/</loc>
     
     <lastmod>2016-09-04T14:10:12.813Z</lastmod>
     

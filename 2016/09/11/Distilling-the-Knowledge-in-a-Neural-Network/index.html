@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="NIPS,Latent,SelfPacedLearning," />
+  <meta name="keywords" content="Transfer,ModelCompression," />
 
 
 
@@ -86,18 +86,16 @@
 
 
 
-<meta name="description" content="这一篇是Self-Paced Learning(SPL)的奠基之作。SPL，固名思义，就是一步步，有自主步伐节奏得学。Motivation应该来自于09年Bengio提出的Curriculum Learning(CL)。CL受到认知科学的启发——人在学东西的时候也没办法一下子接受特别困难的知识，是从简单的开始学起。所以CL是根据某种先验，将按照困难度排好序的样本逐渐喂给模型。SPL与CL最大的不同">
+<meta name="description" content="这篇文章讲的是怎么提取训练好的模型的知识。考虑这样的场景，在很多应用场景中为了提升性能往往需要做集成，但是用集成的模型的话首先部署不够灵活，其次计算量会比较大；或者在深度学习里我们一个模型参数动则上百兆，要把这些模型部署到一些嵌入式设备也不太现实。这篇文章就是用复杂模型的输出【soft target】做一些调整，作为监督信息训练小模型。作者称之为”Knowledge Distillation”。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Self-Paced Learning for Latent Variable Models_NIPS10">
-<meta property="og:url" content="http://yoursite.com/2016/09/02/Self-Paced-Learning-for-Latent-Variable-Models-NIPS10/index.html">
+<meta property="og:title" content="Distilling the Knowledge in a Neural Network">
+<meta property="og:url" content="http://yoursite.com/2016/09/11/Distilling-the-Knowledge-in-a-Neural-Network/index.html">
 <meta property="og:site_name" content="K_Augus">
-<meta property="og:description" content="这一篇是Self-Paced Learning(SPL)的奠基之作。SPL，固名思义，就是一步步，有自主步伐节奏得学。Motivation应该来自于09年Bengio提出的Curriculum Learning(CL)。CL受到认知科学的启发——人在学东西的时候也没办法一下子接受特别困难的知识，是从简单的开始学起。所以CL是根据某种先验，将按照困难度排好序的样本逐渐喂给模型。SPL与CL最大的不同">
-<meta property="og:image" content="http://yoursite.com/uploads/SPL.png">
-<meta property="og:updated_time" content="2016-09-03T00:51:58.971Z">
+<meta property="og:description" content="这篇文章讲的是怎么提取训练好的模型的知识。考虑这样的场景，在很多应用场景中为了提升性能往往需要做集成，但是用集成的模型的话首先部署不够灵活，其次计算量会比较大；或者在深度学习里我们一个模型参数动则上百兆，要把这些模型部署到一些嵌入式设备也不太现实。这篇文章就是用复杂模型的输出【soft target】做一些调整，作为监督信息训练小模型。作者称之为”Knowledge Distillation”。">
+<meta property="og:updated_time" content="2016-09-11T12:09:32.934Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Self-Paced Learning for Latent Variable Models_NIPS10">
-<meta name="twitter:description" content="这一篇是Self-Paced Learning(SPL)的奠基之作。SPL，固名思义，就是一步步，有自主步伐节奏得学。Motivation应该来自于09年Bengio提出的Curriculum Learning(CL)。CL受到认知科学的启发——人在学东西的时候也没办法一下子接受特别困难的知识，是从简单的开始学起。所以CL是根据某种先验，将按照困难度排好序的样本逐渐喂给模型。SPL与CL最大的不同">
-<meta name="twitter:image" content="http://yoursite.com/uploads/SPL.png">
+<meta name="twitter:title" content="Distilling the Knowledge in a Neural Network">
+<meta name="twitter:description" content="这篇文章讲的是怎么提取训练好的模型的知识。考虑这样的场景，在很多应用场景中为了提升性能往往需要做集成，但是用集成的模型的话首先部署不够灵活，其次计算量会比较大；或者在深度学习里我们一个模型参数动则上百兆，要把这些模型部署到一些嵌入式设备也不太现实。这篇文章就是用复杂模型的输出【soft target】做一些调整，作为监督信息训练小模型。作者称之为”Knowledge Distillation”。">
 
 
 
@@ -115,7 +113,7 @@
   };
 </script>
 
-  <title> Self-Paced Learning for Latent Variable Models_NIPS10 | K_Augus </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> Distilling the Knowledge in a Neural Network | K_Augus </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -245,7 +243,7 @@
             
             
               
-                Self-Paced Learning for Latent Variable Models_NIPS10
+                Distilling the Knowledge in a Neural Network
               
             
           </h1>
@@ -257,8 +255,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Veröffentlicht am</span>
-            <time itemprop="dateCreated" datetime="2016-09-02T22:14:38+08:00" content="2016-09-02">
-              2016-09-02
+            <time itemprop="dateCreated" datetime="2016-09-11T20:08:49+08:00" content="2016-09-11">
+              2016-09-11
             </time>
           </span>
 
@@ -271,8 +269,8 @@
               <span class="post-meta-item-text">in</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/SelfPacedLearning/" itemprop="url" rel="index">
-                    <span itemprop="name">SelfPacedLearning</span>
+                  <a href="/categories/ModelCompression/" itemprop="url" rel="index">
+                    <span itemprop="name">ModelCompression</span>
                   </a>
                 </span>
 
@@ -287,8 +285,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/02/Self-Paced-Learning-for-Latent-Variable-Models-NIPS10/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/02/Self-Paced-Learning-for-Latent-Variable-Models-NIPS10/" itemprop="commentsCount"></span>
+                <a href="/2016/09/11/Distilling-the-Knowledge-in-a-Neural-Network/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/Distilling-the-Knowledge-in-a-Neural-Network/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -316,10 +314,10 @@
       
 
       
-        <p>这一篇是Self-Paced Learning(SPL)的奠基之作。<br>SPL，固名思义，就是一步步，有自主步伐节奏得学。Motivation应该来自于09年Bengio提出的Curriculum Learning(CL)。CL受到认知科学的启发——人在学东西的时候也没办法一下子接受特别困难的知识，是从简单的开始学起。所以CL是根据某种先验，将按照困难度排好序的样本逐渐喂给模型。SPL与CL最大的不同之处在于这个排样本的先验是嵌入到模型里面的，是动态的，可以优化学习的。<br>这样子从易到难得学可以看成是一种正则化的手段，有助于加快收敛，并达到一个更好的local minimum.</p>
+        <p>这篇文章讲的是怎么提取训练好的模型的知识。考虑这样的场景，在很多应用场景中为了提升性能往往需要做集成，但是用集成的模型的话首先部署不够灵活，其次计算量会比较大；或者在深度学习里我们一个模型参数动则上百兆，要把这些模型部署到一些嵌入式设备也不太现实。这篇文章就是用复杂模型的输出【soft target】做一些调整，作为监督信息训练小模型。作者称之为”Knowledge Distillation”。</p>
 <a id="more"></a>
-<p>考虑一个普通的机器学习优化问题<br>\begin{equation}<br>w_{t+1}=argmin_{w\in R^d}\left(r(w)+\sum_{i=1}^nf(x_i, y_i; w)\right)<br>\end{equation}<br>$r(.)$是一个正则化项，$f(.)$就是loss项了，比如负对数似然函数。SPL需要考虑样本的难易程度，以及一次要用多少样本。所以这篇文章引入了一个binary variable $v_i$，表示这个样本是否是简单的样本，只有简单的样本才在目标函数中有贡献。这样子新的目标函数是一个混合整数规划【mixed-integer program】问题：<br>\begin{equation}<br>(w_{t+1}, v_{t+1})=argmin_{w\in R^d, v\in {0,1}^n}\left(r(w)+\sum_{i=1}^nv_if(x_i, y_i; w) - \frac{1}{K}\sum_{i=1}{n}v_i\right)<br>\end{equation}<br>$K$是用来调整要选多少简单的样本：当$K$比较大时，为了使目标函数更小，那么就只有$f(.)$比较小【high likelihood，因为是负的】的样本会被选中。<br>更重要的是，每个样本是否是简单的其实不是单独考虑的——它们之间通过参数$w$联系起来，也即，一组样本是简单的条件是有$w$能够拟合这组样本，得到一个值比较小的$f(.)$。<br>在训练过程中，我们逐渐减小$K$的值，使得越来越多的样本能够被考虑进来。当$K$趋近于0时，优化(2)其实就相当于在优化(1)。<br>然而(2)这样的混合整数规划问题通常不好求解，所以我们松弛对参数$v$的约束：允许$v_i$的值落在[0, 1]之间。这个松弛是紧的【tight】，也就是说，取得最优值的$w$，对应的每个$v_i$一定是0或1。这很好理解：如果$f(x_i,y_i;w)\lt 1/K$，那么肯定$v_i=1$能取得最小值；如果$f(x_i,y_i;w)\gt 1/K$，那么肯定$v_i=0$能取得最小值。<br>经过这样的松弛之后，问题就比较好解了。特殊情况下，如果$r(.)$和$f(.)$都是凸的，那么这个目标函数就是个biconvex的目标函数，可以采用诸如坐标下降的方法求解。作者用的是alternative convex search(ACS)。一般情况下，如果$r(.)$和$f(.)$都是非凸的，也可以用类似的方法求解：给定$w$，最优的$v$值为$v_i=\delta(f(x_i, y_i; w)\lt 1/K$，其中$\delta(.)$为指示函数【indicator function】；给定$v$，优化(2)就跟优化(1)一样。<br>作者在实验中$w$的初值是设置所有$v_i=1$，然后用CCCP算法跑一段时间。</p>
-<p>最后用孟德宇老师的一页ppt总结一下SPL：<br><img src="/uploads/SPL.png" alt="SPL"></p>
+<p>分类上我们最常用的目标函数就是softmax，在预测的时候一般就是取预测值最高的那个类别，然而在其他类别上的输出其实蕴含了更多的信息——它反映了当前样本在类别上的相似性。所以我们可以用复杂模型的概率输出——“soft targets”作为监督信息。<strong>如果soft targets的分布蕴含较多的信息【熵比较高】</strong>，那么soft targets能提供比hard targets更多的信息，梯度的variance也会减少，这样我们训练小模型的时候就可以用更少的样本，也能用更高的学习率。如果复杂模型是多个简单模型的集成，那么我们可以对多个简单模型的概率输出做算术或者几何平均，再作为soft targets。</p>
+<p>然而在一些比较简单的任务上，如手写字体识别，我们现有的模型往往能对正确类别给予非常高的置信度，导致在其他类别上的概率输出非常得小，这些非常小的概率会对cross entropy loss有非常小的贡献。为解决这样的问题，在[1]中，作者用的是softmax的输入，即logits作为soft targets，然后最小化复杂模型与小模型的logits之间的均方误差。在这篇论文中，作者是在softmax函数里加入一个称为”temperature”的超参$T$，即<br>$$q_i = \frac{exp(z_i/T)}{\sum_jexp(z_j/T)}$$<br>调节$T$使得复杂模型产生一个合适的soft targets，然后用同样的$T$训练小模型；在测试的时候，$T$还是设为1。如果部分训练样本的标签已知，那么我们可以用多目标的联合训练：分别跟soft targets和正确标签算cross entropy loss。因为soft targets的梯度会除以$1/T^2$，所以联合训练的时候需要对soft targets的cross entropy loss乘上$1/T^2$。</p>
 
       
     </div>
@@ -341,11 +339,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/NIPS/" rel="tag">#NIPS</a>
+            <a href="/tags/Transfer/" rel="tag">#Transfer</a>
           
-            <a href="/tags/Latent/" rel="tag">#Latent</a>
-          
-            <a href="/tags/SelfPacedLearning/" rel="tag">#SelfPacedLearning</a>
+            <a href="/tags/ModelCompression/" rel="tag">#ModelCompression</a>
           
         </div>
       
@@ -354,17 +350,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/09/01/Domain-Adaptation-from-Multiple-Sources-via-Auxiliary-Classifiers-ICML09/" rel="next" title="Domain Adaptation from Multiple Sources via Auxiliary Classifiers_ICML09">
-                <i class="fa fa-chevron-left"></i> Domain Adaptation from Multiple Sources via Auxiliary Classifiers_ICML09
+              <a href="/2016/09/10/Variational-Inference/" rel="next" title="Variational Inference">
+                <i class="fa fa-chevron-left"></i> Variational Inference
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/09/03/Expectation-Maximization-Algorithm/" rel="prev" title="Expectation Maximization Algorithm">
-                Expectation Maximization Algorithm <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -390,8 +382,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/09/02/Self-Paced-Learning-for-Latent-Variable-Models-NIPS10/"
-           data-title="Self-Paced Learning for Latent Variable Models_NIPS10" data-url="http://yoursite.com/2016/09/02/Self-Paced-Learning-for-Latent-Variable-Models-NIPS10/">
+      <div class="ds-thread" data-thread-key="2016/09/11/Distilling-the-Knowledge-in-a-Neural-Network/"
+           data-title="Distilling the Knowledge in a Neural Network" data-url="http://yoursite.com/2016/09/11/Distilling-the-Knowledge-in-a-Neural-Network/">
       </div>
     
   </div>

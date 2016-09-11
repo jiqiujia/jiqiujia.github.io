@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="NIPS,SelfPacedLearning," />
 
 
 
@@ -86,12 +86,16 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="K_Augus">
-<meta property="og:url" content="http://yoursite.com/archives/2016/08/index.html">
+<meta name="description" content="这一篇文章的思想其实很简单，就是让SPL在选择样本的时候不单单只考虑样本的难易程度，还要考虑样本的多样性。这个多样性通过group lasso的优化项来体现。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Self-Paced Learning with Diversity_NIPS14.md">
+<meta property="og:url" content="http://yoursite.com/2016/09/04/Self-Paced-Learning-with-Diversity-NIPS14/index.html">
 <meta property="og:site_name" content="K_Augus">
+<meta property="og:description" content="这一篇文章的思想其实很简单，就是让SPL在选择样本的时候不单单只考虑样本的难易程度，还要考虑样本的多样性。这个多样性通过group lasso的优化项来体现。">
+<meta property="og:updated_time" content="2016-09-04T14:10:12.813Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="K_Augus">
+<meta name="twitter:title" content="Self-Paced Learning with Diversity_NIPS14.md">
+<meta name="twitter:description" content="这一篇文章的思想其实很简单，就是让SPL在选择样本的时候不单单只考虑样本的难易程度，还要考虑样本的多样性。这个多样性通过group lasso的优化项来体现。">
 
 
 
@@ -109,7 +113,7 @@
   };
 </script>
 
-  <title> Archiv | K_Augus </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> Self-Paced Learning with Diversity_NIPS14.md | K_Augus </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -130,7 +134,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left  page-archive  ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -218,66 +222,160 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      Öhm..! Insgesamt 7 Artikel. Bleib dran.
-    </span>
-
+  <div id="posts" class="posts-expand">
     
 
-      
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Self-Paced Learning with Diversity_NIPS14.md
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-09-04T22:09:31+08:00" content="2016-09-04">
+              2016-09-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">in</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/SelfPacedLearning/" itemprop="url" rel="index">
+                    <span itemprop="name">SelfPacedLearning</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/04/Self-Paced-Learning-with-Diversity-NIPS14/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/04/Self-Paced-Learning-with-Diversity-NIPS14/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
 
       
+        <p>这一篇文章的思想其实很简单，就是让SPL在选择样本的时候不单单只考虑样本的难易程度，还要考虑样本的多样性。这个多样性通过group lasso的优化项来体现。</p>
+<a id="more"></a>
+<p>首先，我们的样本$X=(x_1,…,x_n) \in R^{m_n}$被分成$b$组：$X^{(1)},…,X^{(b)},X^{(j)}\in R^{m_n_j}$，$n_j$是第$j$组的样本数目；这个分组要么是给定的，要么可以用一些无监督的方法，比如聚类得到；相应的定义每个组的难易度系数向量$v=[v^{(1)},…,v^{(b)}],\ v^{(j)}=(v^{(j)}_1,…,v^{(j)}_{n_j})^T\in [0,1]^{n_j}$。这样子得到我们新的优化模型：<br>\begin{equation}<br>min_{w,v}E(w,v;\lambda, \gamma)=\sum_{i=1}^nv_iL(y_i,f(x_i,w))-\lambda\sum_{i=1}^nv_i-\gamma|v|_{2,1},\quad s.t. v\in[0,1]^n<br>\end{equation}<br>这里新引入的负$l_{2,1}-norm$项就是为了得到样本的多样性。具体得<br>$$-|v|_{2,1}=-\sum_{j=1}^b|v^{(j)}|_2$$<br>本来$l_{2,1}-norm$是为了得到组稀疏的，现在加了个负号，就能得到和组稀疏相反的效果，也即多样性。</p>
+
+      
+    </div>
+
+    <div>
+      
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NIPS/" rel="tag">#NIPS</a>
+          
+            <a href="/tags/SelfPacedLearning/" rel="tag">#SelfPacedLearning</a>
+          
         </div>
       
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/03/Expectation-Maximization-Algorithm/" rel="next" title="Expectation Maximization Algorithm">
+                <i class="fa fa-chevron-left"></i> Expectation Maximization Algorithm
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/10/Variational-Inference/" rel="prev" title="Variational Inference">
+                Variational Inference <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/08/31/Bilinear-classifiers-for-visual-recognition-NIPS09/" itemprop="url">
-              
-                <span itemprop="name">Bilinear classifiers for visual recognition_NIPS09</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-08-31T19:39:59+08:00"
-              content="2016-08-31" >
-          08-31
-        </time>
-      </div>
-
-    </header>
+      
+    </footer>
   </article>
 
 
 
-    
-
-  </section>
-
-  
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -285,6 +383,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/04/Self-Paced-Learning-with-Diversity-NIPS14/"
+           data-title="Self-Paced Learning with Diversity_NIPS14.md" data-url="http://yoursite.com/2016/09/04/Self-Paced-Learning-with-Diversity-NIPS14/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -304,8 +410,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Übersicht
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -373,6 +488,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">Dieser Artikel hat kein Inhaltsverzeichnis</p>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -490,11 +616,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
 
 
   
@@ -527,7 +651,24 @@
     
       
       <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-      <script src="/js/src/hook-duoshuo.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+      <script src="/js/src/hook-duoshuo.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
     
   
 
