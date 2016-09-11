@@ -80,11 +80,11 @@
   </entry>
   
   <entry>
-    <title>Self-Paced Learning with Diversity_NIPS14.md</title>
+    <title>Self-Paced Learning with Diversity_NIPS14</title>
     <link href="http://yoursite.com/2016/09/04/Self-Paced-Learning-with-Diversity-NIPS14/"/>
     <id>http://yoursite.com/2016/09/04/Self-Paced-Learning-with-Diversity-NIPS14/</id>
     <published>2016-09-04T14:09:31.000Z</published>
-    <updated>2016-09-04T14:10:12.813Z</updated>
+    <updated>2016-09-11T12:21:34.454Z</updated>
     
     <content type="html"><![CDATA[<p>这一篇文章的思想其实很简单，就是让SPL在选择样本的时候不单单只考虑样本的难易程度，还要考虑样本的多样性。这个多样性通过group lasso的优化项来体现。</p>
 <a id="more"></a>
