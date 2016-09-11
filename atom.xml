@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-09-11T12:22:27.760Z</updated>
+  <updated>2016-09-11T12:53:33.015Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2016/09/11/Distilling-the-Knowledge-in-a-Neural-Network/"/>
     <id>http://yoursite.com/2016/09/11/Distilling-the-Knowledge-in-a-Neural-Network/</id>
     <published>2016-09-11T12:08:49.000Z</published>
-    <updated>2016-09-11T12:22:27.760Z</updated>
+    <updated>2016-09-11T12:53:33.015Z</updated>
     
     <content type="html"><![CDATA[<p>这篇文章讲的是怎么提取训练好的模型的知识。考虑这样的场景，在很多应用场景中为了提升性能往往需要做集成，但是用集成的模型的话首先部署不够灵活，其次计算量会比较大；或者在深度学习里我们一个模型参数动则上百兆，要把这些模型部署到一些嵌入式设备也不太现实。这篇文章就是对复杂模型的输出【soft target】做一些调整，作为监督信息训练小模型。作者称之为”Knowledge Distillation”。</p>
 <a id="more"></a>
