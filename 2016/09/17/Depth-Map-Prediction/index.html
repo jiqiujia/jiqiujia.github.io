@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="NIPS,Latent,SelfPacedLearning," />
+  <meta name="keywords" content="DepthMap," />
 
 
 
@@ -86,18 +86,24 @@
 
 
 
-<meta name="description" content="这一篇是Self-Paced Learning(SPL)的奠基之作。SPL，固名思义，就是一步步，有自主步伐节奏得学。Motivation应该来自于09年Bengio提出的Curriculum Learning(CL)。CL受到认知科学的启发——人在学东西的时候也没办法一下子接受特别困难的知识，是从简单的开始学起。所以CL是根据某种先验，将按照困难度排好序的样本逐渐喂给模型。SPL与CL最大的不同">
+<meta name="description" content="Depth Map Prediction from a Single Image using a Multi-Scale Deep Network_NIPS14这篇文章其实像是一个coarse to fine的cascade模型，直接先看网络模型吧就是把第一层网络的coarse输出拼接到第二层的网络上去。然后作者提出一种缩放尺度不变的mean square error做回归\begin{alig">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Self-Paced Learning for Latent Variable Models_NIPS10">
-<meta property="og:url" content="http://yoursite.com/2016/09/02/Self-Paced-Learning-for-Latent-Variable-Models-NIPS10/index.html">
+<meta property="og:title" content="Depth Map Prediction">
+<meta property="og:url" content="http://yoursite.com/2016/09/17/Depth-Map-Prediction/index.html">
 <meta property="og:site_name" content="K_Augus">
-<meta property="og:description" content="这一篇是Self-Paced Learning(SPL)的奠基之作。SPL，固名思义，就是一步步，有自主步伐节奏得学。Motivation应该来自于09年Bengio提出的Curriculum Learning(CL)。CL受到认知科学的启发——人在学东西的时候也没办法一下子接受特别困难的知识，是从简单的开始学起。所以CL是根据某种先验，将按照困难度排好序的样本逐渐喂给模型。SPL与CL最大的不同">
-<meta property="og:image" content="http://yoursite.com/uploads/SPL.png">
-<meta property="og:updated_time" content="2016-09-03T00:51:58.971Z">
+<meta property="og:description" content="Depth Map Prediction from a Single Image using a Multi-Scale Deep Network_NIPS14这篇文章其实像是一个coarse to fine的cascade模型，直接先看网络模型吧就是把第一层网络的coarse输出拼接到第二层的网络上去。然后作者提出一种缩放尺度不变的mean square error做回归\begin{alig">
+<meta property="og:image" content="https://cl.ly/3P261n1t023f">
+<meta property="og:image" content="https://cl.ly/0N3S3S373H44">
+<meta property="og:image" content="https://cl.ly/3X3T1a3G3X1o">
+<meta property="og:image" content="https://cl.ly/0w3M1r431O27">
+<meta property="og:image" content="https://cl.ly/3k2Q3l233T1h">
+<meta property="og:image" content="https://cl.ly/2m433o3R4246">
+<meta property="og:image" content="https://cl.ly/3D3L3d2z0l3o">
+<meta property="og:updated_time" content="2016-09-17T04:20:14.605Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Self-Paced Learning for Latent Variable Models_NIPS10">
-<meta name="twitter:description" content="这一篇是Self-Paced Learning(SPL)的奠基之作。SPL，固名思义，就是一步步，有自主步伐节奏得学。Motivation应该来自于09年Bengio提出的Curriculum Learning(CL)。CL受到认知科学的启发——人在学东西的时候也没办法一下子接受特别困难的知识，是从简单的开始学起。所以CL是根据某种先验，将按照困难度排好序的样本逐渐喂给模型。SPL与CL最大的不同">
-<meta name="twitter:image" content="http://yoursite.com/uploads/SPL.png">
+<meta name="twitter:title" content="Depth Map Prediction">
+<meta name="twitter:description" content="Depth Map Prediction from a Single Image using a Multi-Scale Deep Network_NIPS14这篇文章其实像是一个coarse to fine的cascade模型，直接先看网络模型吧就是把第一层网络的coarse输出拼接到第二层的网络上去。然后作者提出一种缩放尺度不变的mean square error做回归\begin{alig">
+<meta name="twitter:image" content="https://cl.ly/3P261n1t023f">
 
 
 
@@ -115,7 +121,7 @@
   };
 </script>
 
-  <title> Self-Paced Learning for Latent Variable Models_NIPS10 | K_Augus </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> Depth Map Prediction | K_Augus </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -245,7 +251,7 @@
             
             
               
-                Self-Paced Learning for Latent Variable Models_NIPS10
+                Depth Map Prediction
               
             
           </h1>
@@ -257,8 +263,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Veröffentlicht am</span>
-            <time itemprop="dateCreated" datetime="2016-09-02T22:14:38+08:00" content="2016-09-02">
-              2016-09-02
+            <time itemprop="dateCreated" datetime="2016-09-17T12:18:56+08:00" content="2016-09-17">
+              2016-09-17
             </time>
           </span>
 
@@ -271,8 +277,8 @@
               <span class="post-meta-item-text">in</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/SelfPacedLearning/" itemprop="url" rel="index">
-                    <span itemprop="name">SelfPacedLearning</span>
+                  <a href="/categories/PaperNotes/" itemprop="url" rel="index">
+                    <span itemprop="name">PaperNotes</span>
                   </a>
                 </span>
 
@@ -287,8 +293,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/02/Self-Paced-Learning-for-Latent-Variable-Models-NIPS10/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/02/Self-Paced-Learning-for-Latent-Variable-Models-NIPS10/" itemprop="commentsCount"></span>
+                <a href="/2016/09/17/Depth-Map-Prediction/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/17/Depth-Map-Prediction/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -316,10 +322,14 @@
       
 
       
-        <p>这一篇是Self-Paced Learning(SPL)的奠基之作。<br>SPL，固名思义，就是一步步，有自主步伐节奏得学。Motivation应该来自于09年Bengio提出的Curriculum Learning(CL)。CL受到认知科学的启发——人在学东西的时候也没办法一下子接受特别困难的知识，是从简单的开始学起。所以CL是根据某种先验，将按照困难度排好序的样本逐渐喂给模型。SPL与CL最大的不同之处在于这个排样本的先验是嵌入到模型里面的，是动态的，可以优化学习的。<br>这样子从易到难得学可以看成是一种正则化的手段，有助于加快收敛，并达到一个更好的local minimum.</p>
-<a id="more"></a>
-<p>考虑一个普通的机器学习优化问题<br>\begin{equation}<br>w_{t+1}=argmin_{w\in R^d}\left(r(w)+\sum_{i=1}^nf(x_i, y_i; w)\right)<br>\end{equation}<br>$r(.)$是一个正则化项，$f(.)$就是loss项了，比如负对数似然函数。SPL需要考虑样本的难易程度，以及一次要用多少样本。所以这篇文章引入了一个binary variable $v_i$，表示这个样本是否是简单的样本，只有简单的样本才在目标函数中有贡献。这样子新的目标函数是一个混合整数规划【mixed-integer program】问题：<br>\begin{equation}<br>(w_{t+1}, v_{t+1})=argmin_{w\in R^d, v\in {0,1}^n}\left(r(w)+\sum_{i=1}^nv_if(x_i, y_i; w) - \frac{1}{K}\sum_{i=1}{n}v_i\right)<br>\end{equation}<br>$K$是用来调整要选多少简单的样本：当$K$比较大时，为了使目标函数更小，那么就只有$f(.)$比较小【high likelihood，因为是负的】的样本会被选中。<br>更重要的是，每个样本是否是简单的其实不是单独考虑的——它们之间通过参数$w$联系起来，也即，一组样本是简单的条件是有$w$能够拟合这组样本，得到一个值比较小的$f(.)$。<br>在训练过程中，我们逐渐减小$K$的值，使得越来越多的样本能够被考虑进来。当$K$趋近于0时，优化(2)其实就相当于在优化(1)。<br>然而(2)这样的混合整数规划问题通常不好求解，所以我们松弛对参数$v$的约束：允许$v_i$的值落在[0, 1]之间。这个松弛是紧的【tight】，也就是说，取得最优值的$w$，对应的每个$v_i$一定是0或1。这很好理解：如果$f(x_i,y_i;w)\lt 1/K$，那么肯定$v_i=1$能取得最小值；如果$f(x_i,y_i;w)\gt 1/K$，那么肯定$v_i=0$能取得最小值。<br>经过这样的松弛之后，问题就比较好解了。特殊情况下，如果$r(.)$和$f(.)$都是凸的，那么这个目标函数就是个biconvex的目标函数，可以采用诸如坐标下降的方法求解。作者用的是alternative convex search(ACS)。一般情况下，如果$r(.)$和$f(.)$都是非凸的，也可以用类似的方法求解：给定$w$，最优的$v$值为$v_i=\delta(f(x_i, y_i; w)\lt 1/K$，其中$\delta(.)$为指示函数【indicator function】；给定$v$，优化(2)就跟优化(1)一样。<br>作者在实验中$w$的初值是设置所有$v_i=1$，然后用CCCP算法跑一段时间。</p>
-<p>最后用孟德宇老师的一页ppt总结一下SPL：<br><img src="/uploads/SPL.png" alt="SPL"></p>
+        <ol>
+<li><p>Depth Map Prediction from a Single Image using a Multi-Scale Deep Network_NIPS14<br>这篇文章其实像是一个coarse to fine的cascade模型，直接先看网络模型吧<br><img src="https://cl.ly/3P261n1t023f" alt="Depth Map Prediction from a Single Image using a Multi-Scale Deep Network"><br>就是把第一层网络的coarse输出拼接到第二层的网络上去。<br>然后作者提出一种缩放尺度不变的mean square error做回归<br>\begin{align}<br>D(y,y^*) &amp;= \frac{1}{2n^2}\sum_{i,j}((logy_i-logy_j)-(logy_i^_-logy_j^_))^2 \\<br>&amp;= \frac{1}{n}\sum_id_i^2-\frac{1}{n^2}\sum_{i,j}d_id_j\\<br>&amp;= \frac{1}{n}\sum_id_i^2-\frac{1}{n^2}\left(\sum_id_i\right)^2<br>\end{align}<br>其中，$y$是预测的值，$y^_$是ground truth，$d_i=logy_i-logy_i^_$<br>这样子，为了得到小的loss，预测的深度图像中每一对像素值之差应该与ground truth之间的差不多。然而个人觉得，这个loss其实会造成整体的灰度与ground truth之间有一定的差别，从作者给出的训练结果可以看出这一点<br><img src="https://cl.ly/0N3S3S373H44" alt="Depth Map Prediction from a Single Image using a Multi-Scale Deep Network_2"><br>(a)是原图，(b)是第一层网络的coarse输出，(c)是第二层网络的fine输出，(d)是ground truth</p>
+</li>
+<li><p>Deep Convolutional Neural Fields for Depth Estimation from a Single Image_CVPR15<br>还是先看网络架构<br><img src="https://cl.ly/3X3T1a3G3X1o" alt="Deep Convolutional Neural Fields for Depth Estimation from a Single Image_1"><br>作者先把图片用SLIC算法分割成超像素，对于每个超像素，以那个超像素的中心为中心取一个224*224的块，输入到深度网络中得到预测值$z_p$，算回归loss，$\sum U(y_p,x)=\sum(y_p-z_p)^2$；对于相邻的超像素块，还会计算它们的$K$种相似度【文中用了3种：颜色差，颜色直方图差和LBP特征，$S_{pq}^{(k)}=e^{-\gamma|s_p^{(k)}-s_q^{(k)}}|$】，这些特征通过一个全连接层，得到$R_{pq}$，算pairwise loss$\sum V(y_p,y_q,x)=\sum\frac{1}{2}R_{pq}(y_p-y_q)^2$，这个loss是为了约束相似的超像素块具有相近的深度值。这两者合起来当成一个CRF loss。这个loss形式简单，所以是有close form solution的，可以直接求导。<br>作者用这种超像素分割的方法的弊端在于最后的预测结果也是像超像素一样分成一块一块的<br><img src="https://cl.ly/0w3M1r431O27" alt="Deep Convolutional Neural Fields for Depth Estimation from a Single Image_2"><br>还有一点就是用CRF可能会过度平滑预测结果<br><img src="https://cl.ly/3k2Q3l233T1h" alt="Deep Convolutional Neural Fields for Depth Estimation from a Single Image_3"></p>
+</li>
+<li><p>Estimating Depth from Monocular Images as Classification Using Deep Fully Convolutional Residual Networks_arxiv16<br>这篇文章的思想就更简单了，直接借鉴从物体分割的思想【Semantic image segmentation with deep convolutional nets and fully<br>connected crfs】，quantize深度图像，转化成分类问题，然后用crf做后处理<br>虽然作者在loss函数里加了infogain matrix和bootstrapping的参数，然后从实验结果上看几乎没有影响。<br>用CRF优化可能会过度平滑的问题在这篇文章的结果里也体现出来了<br><img src="https://cl.ly/2m433o3R4246" alt="Estimating Depth from Monocular Images as Classification Using Deep Fully Convolutional Residual Networks_1"><br><img src="https://cl.ly/3D3L3d2z0l3o" alt="Estimating Depth from Monocular Images as Classification Using Deep Fully Convolutional Residual Networks_2"><br>目前还没有看到像dialted convolution之类的工作引入进来，而且从这篇文章以及个人经验来看，分类貌似问题比回归要好，用mse来做回归貌似经常不妥当。</p>
+</li>
+</ol>
 
       
     </div>
@@ -341,11 +351,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/NIPS/" rel="tag">#NIPS</a>
-          
-            <a href="/tags/Latent/" rel="tag">#Latent</a>
-          
-            <a href="/tags/SelfPacedLearning/" rel="tag">#SelfPacedLearning</a>
+            <a href="/tags/DepthMap/" rel="tag">#DepthMap</a>
           
         </div>
       
@@ -354,17 +360,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/09/01/Domain-Adaptation-from-Multiple-Sources-via-Auxiliary-Classifiers-ICML09/" rel="next" title="Domain Adaptation from Multiple Sources via Auxiliary Classifiers_ICML09">
-                <i class="fa fa-chevron-left"></i> Domain Adaptation from Multiple Sources via Auxiliary Classifiers_ICML09
+              <a href="/2016/09/15/Gaussian-distribution/" rel="next" title="Gaussian distribution">
+                <i class="fa fa-chevron-left"></i> Gaussian distribution
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/09/03/Expectation-Maximization-Algorithm/" rel="prev" title="Expectation Maximization Algorithm">
-                Expectation Maximization Algorithm <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -390,8 +392,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/09/02/Self-Paced-Learning-for-Latent-Variable-Models-NIPS10/"
-           data-title="Self-Paced Learning for Latent Variable Models_NIPS10" data-url="http://yoursite.com/2016/09/02/Self-Paced-Learning-for-Latent-Variable-Models-NIPS10/">
+      <div class="ds-thread" data-thread-key="2016/09/17/Depth-Map-Prediction/"
+           data-title="Depth Map Prediction" data-url="http://yoursite.com/2016/09/17/Depth-Map-Prediction/">
       </div>
     
   </div>
