@@ -99,7 +99,7 @@
 <meta property="og:image" content="https://cl.ly/3k2Q3l233T1h/Deep%20Convolutional%20Neural%20Fields%20for%20Depth%20Estimation%20from%20a%20Single%20Image_3.png">
 <meta property="og:image" content="https://cl.ly/2m433o3R4246/Estimating%20Depth%20from%20Monocular%20Images%20as%20Classification%20Using%20Deep%20Fully%20Convolutional%20Residual%20Networks_1.png">
 <meta property="og:image" content="https://cl.ly/3D3L3d2z0l3o/Estimating%20Depth%20from%20Monocular%20Images%20as%20Classification%20Using%20Deep%20Fully%20Convolutional%20Residual%20Networks_2.png">
-<meta property="og:updated_time" content="2016-09-17T04:56:41.805Z">
+<meta property="og:updated_time" content="2016-09-17T04:57:38.618Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Depth Map Prediction">
 <meta name="twitter:description" content="Depth Map Prediction from a Single Image using a Multi-Scale Deep Network_NIPS14这篇文章其实像是一个coarse to fine的cascade模型，直接先看网络模型吧就是把第一层网络的coarse输出拼接到第二层的网络上去。然后作者提出一种缩放尺度不变的mean square error做回归\begin{ali">
@@ -179,7 +179,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -189,7 +189,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
-            Categories
+            Kategorien
           </a>
         </li>
       
@@ -199,7 +199,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -262,7 +262,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posted on</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-09-17T12:18:56+08:00" content="2016-09-17">
               2016-09-17
             </time>
@@ -274,7 +274,7 @@
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              <span class="post-meta-item-text">In</span>
+              <span class="post-meta-item-text">in</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                   <a href="/categories/PaperNotes/" itemprop="url" rel="index">
@@ -324,7 +324,7 @@
       
         <a id="more"></a>
 <ol>
-<li><p>Depth Map Prediction from a Single Image using a Multi-Scale Deep Network_NIPS14<br>这篇文章其实像是一个coarse to fine的cascade模型，直接先看网络模型吧<br><img src="https://cl.ly/3P261n1t023f/Depth%20Map%20Prediction%20from%20a%20Single%20Image.png" alt="Depth Map Prediction from a Single Image using a Multi-Scale Deep Network"><br>就是把第一层网络的coarse输出拼接到第二层的网络上去。<br>然后作者提出一种缩放尺度不变的mean square error做回归<br>\begin{align}<br>D(y,y^*) &amp;= \frac{1}{2n^2}\sum_{i,j}((logy_i-logy_j)-(logy_i^_-logy_j^_))^2 \\<br>&amp;= \frac{1}{n}\sum_id_i^2-\frac{1}{n^2}\sum_{i,j}d_id_j\\<br>&amp;= \frac{1}{n}\sum_id_i^2-\frac{1}{n^2}\left(\sum_id_i\right)^2<br>\end{align}<br>其中，$y$是预测的值，$y^_$是ground truth，$d_i=logy_i-logy_i^_$<br>这样子，为了得到小的loss，预测的深度图像中每一对像素值之差应该与ground truth之间的差不多。然而个人觉得，这个loss其实会造成整体的灰度与ground truth之间有一定的差别，从作者给出的训练结果可以看出这一点<br><img src="https://cl.ly/0N3S3S373H44/Depth%20Map%20Prediction%20from%20a%20Single%20Image_2.png" alt="Depth Map Prediction from a Single Image using a Multi-Scale Deep Network_2"><br>(a)是原图，(b)是第一层网络的coarse输出，(c)是第二层网络的fine输出，(d)是ground truth</p>
+<li><p>Depth Map Prediction from a Single Image using a Multi-Scale Deep Network_NIPS14<br>这篇文章其实像是一个coarse to fine的cascade模型，直接先看网络模型吧<br><img src="https://cl.ly/3P261n1t023f/Depth%20Map%20Prediction%20from%20a%20Single%20Image.png" alt="Depth Map Prediction from a Single Image using a Multi-Scale Deep Network"><br>就是把第一层网络的coarse输出拼接到第二层的网络上去。<br>然后作者提出一种缩放尺度不变的mean square error做回归<br>\begin{align}<br>D(y,y^*) &amp;= \frac{1}{2n^2}\sum_{i,j}((logy_i-logy_j)-(logy_i^*-logy_j^*))^2 \\<br>&amp;= \frac{1}{n}\sum_id_i^2-\frac{1}{n^2}\sum_{i,j}d_id_j\\<br>&amp;= \frac{1}{n}\sum_id_i^2-\frac{1}{n^2}\left(\sum_id_i\right)^2<br>\end{align}<br>其中，$y$是预测的值，$y^*$是ground truth，$d_i=logy_i-logy_i^*$<br>这样子，为了得到小的loss，预测的深度图像中每一对像素值之差应该与ground truth之间的差不多。然而个人觉得，这个loss其实会造成整体的灰度与ground truth之间有一定的差别，从作者给出的训练结果可以看出这一点<br><img src="https://cl.ly/0N3S3S373H44/Depth%20Map%20Prediction%20from%20a%20Single%20Image_2.png" alt="Depth Map Prediction from a Single Image using a Multi-Scale Deep Network_2"><br>(a)是原图，(b)是第一层网络的coarse输出，(c)是第二层网络的fine输出，(d)是ground truth</p>
 </li>
 <li><p>Deep Convolutional Neural Fields for Depth Estimation from a Single Image_CVPR15<br>还是先看网络架构<br><img src="https://cl.ly/3X3T1a3G3X1o/Deep%20Convolutional%20Neural%20Fields%20for%20Depth%20Estimation%20from%20a%20Single%20Image_1.png" alt="Deep Convolutional Neural Fields for Depth Estimation from a Single Image_1"><br>作者先把图片用SLIC算法分割成超像素，对于每个超像素，以那个超像素的中心为中心取一个224*224的块，输入到深度网络中得到预测值$z_p$，算回归loss，$\sum U(y_p,x)=\sum(y_p-z_p)^2$；对于相邻的超像素块，还会计算它们的$K$种相似度【文中用了3种：颜色差，颜色直方图差和LBP特征，$S_{pq}^{(k)}=e^{-\gamma|s_p^{(k)}-s_q^{(k)}}|$】，这些特征通过一个全连接层，得到$R_{pq}$，算pairwise loss$\sum V(y_p,y_q,x)=\sum\frac{1}{2}R_{pq}(y_p-y_q)^2$，这个loss是为了约束相似的超像素块具有相近的深度值。这两者合起来当成一个CRF loss。这个loss形式简单，所以是有close form solution的，可以直接求导。<br>作者用这种超像素分割的方法的弊端在于最后的预测结果也是像超像素一样分成一块一块的<br><img src="https://cl.ly/0w3M1r431O27/Deep%20Convolutional%20Neural%20Fields%20for%20Depth%20Estimation%20from%20a%20Single%20Image_2.png" alt="Deep Convolutional Neural Fields for Depth Estimation from a Single Image_2"><br>还有一点就是用CRF可能会过度平滑预测结果<br><img src="https://cl.ly/3k2Q3l233T1h/Deep%20Convolutional%20Neural%20Fields%20for%20Depth%20Estimation%20from%20a%20Single%20Image_3.png" alt="Deep Convolutional Neural Fields for Depth Estimation from a Single Image_3"></p>
 </li>
@@ -420,10 +420,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -440,7 +440,7 @@
           <div class="site-state-item site-state-posts">
             <a href="/archives">
               <span class="site-state-item-count">9</span>
-              <span class="site-state-item-name">posts</span>
+              <span class="site-state-item-name">Artikel</span>
             </a>
           </div>
 
@@ -448,7 +448,7 @@
             <div class="site-state-item site-state-categories">
               <a href="/categories">
                 <span class="site-state-item-count">5</span>
-                <span class="site-state-item-name">categories</span>
+                <span class="site-state-item-name">Kategorien</span>
               </a>
             </div>
           
@@ -457,7 +457,7 @@
             <div class="site-state-item site-state-tags">
               <a href="/tags">
                 <span class="site-state-item-count">13</span>
-                <span class="site-state-item-name">tags</span>
+                <span class="site-state-item-name">Tags</span>
               </a>
             </div>
           
@@ -503,7 +503,7 @@
               
             
             
-              <p class="post-toc-empty">This post does not have a Table of Contents</p>
+              <p class="post-toc-empty">Dieser Artikel hat kein Inhaltsverzeichnis</p>
             
           </div>
         </section>
@@ -535,7 +535,7 @@
 您是第<span id="busuanzi_value_site_uv"></span>个来到的小伙伴
 
 <div class="powered-by">
-  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+  Erstellt mit  <a class="theme-link" href="http://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
