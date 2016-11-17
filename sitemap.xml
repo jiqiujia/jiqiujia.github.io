@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2016/09/10/Variational-Inference/</loc>
+    
+    <lastmod>2016-11-17T02:56:02.134Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2016/09/17/Depth-Map-Prediction/</loc>
     
     <lastmod>2016-09-17T07:09:26.024Z</lastmod>
@@ -26,13 +33,6 @@
     <loc>http://yoursite.com/2016/09/04/Self-Paced-Learning-with-Diversity-NIPS14/</loc>
     
     <lastmod>2016-09-11T12:21:34.454Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2016/09/10/Variational-Inference/</loc>
-    
-    <lastmod>2016-09-10T14:46:20.536Z</lastmod>
     
   </url>
   
