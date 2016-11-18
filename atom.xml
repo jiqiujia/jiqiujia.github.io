@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-11-18T02:16:18.473Z</updated>
+  <updated>2016-09-17T07:09:26.024Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,20 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>Auto-Encoding Variational Bayes_iclr14</title>
-    <link href="http://yoursite.com/2016/11/18/Auto-Encoding-Variational-Bayes-iclr14/"/>
-    <id>http://yoursite.com/2016/11/18/Auto-Encoding-Variational-Bayes-iclr14/</id>
-    <published>2016-11-18T02:16:18.000Z</published>
-    <updated>2016-11-18T02:16:18.473Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-  </entry>
   
   <entry>
     <title>Depth Map Prediction</title>
@@ -204,9 +190,9 @@
       <category term="Tutorial" scheme="http://yoursite.com/categories/Tutorial/"/>
     
     
-      <category term="EM" scheme="http://yoursite.com/tags/EM/"/>
-    
       <category term="Tutorial" scheme="http://yoursite.com/tags/Tutorial/"/>
+    
+      <category term="EM" scheme="http://yoursite.com/tags/EM/"/>
     
       <category term="Latent" scheme="http://yoursite.com/tags/Latent/"/>
     
