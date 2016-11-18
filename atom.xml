@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-11-18T05:02:35.295Z</updated>
+  <updated>2016-11-18T05:35:24.403Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2016/11/18/Auto-Encoding-Variational-Bayes-iclr14/"/>
     <id>http://yoursite.com/2016/11/18/Auto-Encoding-Variational-Bayes-iclr14/</id>
     <published>2016-11-18T02:16:18.000Z</published>
-    <updated>2016-11-18T05:02:35.295Z</updated>
+    <updated>2016-11-18T05:35:24.403Z</updated>
     
     <content type="html"><![CDATA[<p>这是一篇不可多得的好文章，将无监督的深度生成模型与变分贝叶斯模型结合在一起。它包含两部分，一部分是probabilistic encoder $Q_{\Phi}(Z|X)$，用来近似真实的后验分布$P_{\Theta}(Z|X)$，将输入$X$映射到隐含层编码$Z$；另一部分是生成模型$P_{\Theta}(X|Z)$【decoder】，用隐含层的表示重构输入$X$</p>
 <a id="more"></a>
@@ -32,6 +32,8 @@
 <p>下面给出$Q_{\Phi}$和$P(Z)$在高斯情况下的KL熵解析形式，其中$J$是$Z$的维度：<br>\begin{align}<br>\int Q_{\Phi}(Z)logP_{\Theta}(Z)dz &amp;= \int \mathcal{N}(Z;\mu, \sigma^2)log\mathcal{N}(Z;0,I)dz \\<br>&amp;= -\frac{J}{2}log(2\pi)-\frac{1}{2}\sum_{j=1}^{J}(\mu_j^2+\sigma_j^2)<br>\end{align}<br>\begin{align}<br>\int Q_{\Phi}(Z)logQ_{\Phi}(Z)dz &amp;= \int \mathcal{N}(Z;\mu, \sigma^2)log\mathcal{N}(Z;\mu, \sigma^2)dz \\<br>&amp;= -\frac{J}{2}log(2\pi)-\frac{1}{2}\sum_{j=1}^{J}(1+\sigma_j^2)<br>\end{align}<br>所以：<br>\begin{align}<br>-D_{KL}(Q_{\Phi}(Z)||P_\Theta(Z)=\frac{1}{2}\sum_{j=1}^{L}(1+log(\sigma_j^2)-\mu_j^2-\sigma_j^2)<br>\end{align}</p>
 <hr>
 <p></p><h2>Marginal likelihood estimator</h2><br>估计生成模型$p_{\theta}(x,z)=p_{\theta}p_{\theta}(x|z)$的边缘分布$p_{\theta}(x^{(i)})$<br><img src="https://cl.ly/0D2E2z0N2g3V/Image%202016-11-18%20at%2010.10.29%20AM.png" alt="marginal likelihood estimator"><p></p>
+<hr>
+<p></p><h2>References</h2><br>[1]. Tutorial on Variational Autoencoders<br>[2]. Auto-Encoding Variational Bayes<p></p>
 ]]></content>
     
     <summary type="html">
