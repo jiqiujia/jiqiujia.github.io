@@ -3,26 +3,23 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
-  <title>Depth Map Prediction | K_Augus</title>
+  <title>Auto-Encoding Variational Bayes_iclr14 | K_Augus</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="这篇文章主要是一些做深度图像预测的论文笔记。">
+  <meta name="description" content="这是一篇不可多得的好文章，将无监督的深度生成模型与变分贝叶斯模型结合在一起。它包含两部分，一部分是probabilistic encoder $Q_{\Phi}(Z|X)$，用来近似真实的后验分布$P_{\Theta}(Z|X)$，将输入$X$映射到隐含层编码$Z$；另一部分是生成模型$P_{\Theta}(X|Z)$【decoder】，用隐含层的表示重构输入$X$">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Depth Map Prediction">
-<meta property="og:url" content="http://yoursite.com/2016/09/17/Depth-Map-Prediction/index.html">
+<meta property="og:title" content="Auto-Encoding Variational Bayes_iclr14">
+<meta property="og:url" content="http://yoursite.com/2016/11/18/Auto-Encoding-Variational-Bayes-iclr14/index.html">
 <meta property="og:site_name" content="K_Augus">
-<meta property="og:description" content="这篇文章主要是一些做深度图像预测的论文笔记。">
-<meta property="og:image" content="https://cl.ly/3P261n1t023f/Depth%20Map%20Prediction%20from%20a%20Single%20Image.png">
-<meta property="og:image" content="https://cl.ly/0N3S3S373H44/Depth%20Map%20Prediction%20from%20a%20Single%20Image_2.png">
-<meta property="og:image" content="https://cl.ly/3X3T1a3G3X1o/Deep%20Convolutional%20Neural%20Fields%20for%20Depth%20Estimation%20from%20a%20Single%20Image_1.png">
-<meta property="og:image" content="https://cl.ly/0w3M1r431O27/Deep%20Convolutional%20Neural%20Fields%20for%20Depth%20Estimation%20from%20a%20Single%20Image_2.png">
-<meta property="og:image" content="https://cl.ly/3k2Q3l233T1h/Deep%20Convolutional%20Neural%20Fields%20for%20Depth%20Estimation%20from%20a%20Single%20Image_3.png">
-<meta property="og:image" content="https://cl.ly/2m433o3R4246/Estimating%20Depth%20from%20Monocular%20Images%20as%20Classification%20Using%20Deep%20Fully%20Convolutional%20Residual%20Networks_1.png">
-<meta property="og:image" content="https://cl.ly/3D3L3d2z0l3o/Estimating%20Depth%20from%20Monocular%20Images%20as%20Classification%20Using%20Deep%20Fully%20Convolutional%20Residual%20Networks_2.png">
-<meta property="og:updated_time" content="2016-09-17T07:09:26.024Z">
+<meta property="og:description" content="这是一篇不可多得的好文章，将无监督的深度生成模型与变分贝叶斯模型结合在一起。它包含两部分，一部分是probabilistic encoder $Q_{\Phi}(Z|X)$，用来近似真实的后验分布$P_{\Theta}(Z|X)$，将输入$X$映射到隐含层编码$Z$；另一部分是生成模型$P_{\Theta}(X|Z)$【decoder】，用隐含层的表示重构输入$X$">
+<meta property="og:image" content="https://cl.ly/281x2Y3W1l0I/Image%202016-11-18%20at%209.31.19%20AM.png">
+<meta property="og:image" content="https://cl.ly/0y2I350E3820/Image%202016-11-18%20at%209.32.55%20AM.png">
+<meta property="og:image" content="https://cl.ly/2D3X411r3g3a/Image%202016-11-18%20at%209.05.12%20AM.png">
+<meta property="og:image" content="https://cl.ly/0D2E2z0N2g3V/Image%202016-11-18%20at%2010.10.29%20AM.png">
+<meta property="og:updated_time" content="2016-11-18T02:34:17.425Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Depth Map Prediction">
-<meta name="twitter:description" content="这篇文章主要是一些做深度图像预测的论文笔记。">
-<meta name="twitter:image" content="https://cl.ly/3P261n1t023f/Depth%20Map%20Prediction%20from%20a%20Single%20Image.png">
+<meta name="twitter:title" content="Auto-Encoding Variational Bayes_iclr14">
+<meta name="twitter:description" content="这是一篇不可多得的好文章，将无监督的深度生成模型与变分贝叶斯模型结合在一起。它包含两部分，一部分是probabilistic encoder $Q_{\Phi}(Z|X)$，用来近似真实的后验分布$P_{\Theta}(Z|X)$，将输入$X$映射到隐含层编码$Z$；另一部分是生成模型$P_{\Theta}(X|Z)$【decoder】，用隐含层的表示重构输入$X$">
+<meta name="twitter:image" content="https://cl.ly/281x2Y3W1l0I/Image%202016-11-18%20at%209.31.19%20AM.png">
   
     <link rel="alternate" href="/atom.xml" title="K_Augus" type="application/atom+xml">
   
@@ -71,16 +68,12 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Depth-Map-Prediction" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Auto-Encoding-Variational-Bayes-iclr14" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2016/09/17/Depth-Map-Prediction/" class="article-date">
-  <time datetime="2016-09-17T04:18:56.000Z" itemprop="datePublished">2016-09-17</time>
+    <a href="/2016/11/18/Auto-Encoding-Variational-Bayes-iclr14/" class="article-date">
+  <time datetime="2016-11-18T02:16:18.000Z" itemprop="datePublished">2016-11-18</time>
 </a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/PaperNotes/">PaperNotes</a>
-  </div>
-
   </div>
   <div class="article-inner">
     
@@ -89,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Depth Map Prediction
+      Auto-Encoding Variational Bayes_iclr14
     </h1>
   
 
@@ -97,19 +90,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>这篇文章主要是一些做深度图像预测的论文笔记。</p>
+        <p>这是一篇不可多得的好文章，将无监督的深度生成模型与变分贝叶斯模型结合在一起。它包含两部分，一部分是probabilistic encoder $Q_{\Phi}(Z|X)$，用来近似真实的后验分布$P_{\Theta}(Z|X)$，将输入$X$映射到隐含层编码$Z$；另一部分是生成模型$P_{\Theta}(X|Z)$【decoder】，用隐含层的表示重构输入$X$</p>
 <a id="more"></a>
-<p></p><h2>1. Depth Map Prediction from a Single Image using a Multi-Scale Deep Network_NIPS14</h2><br>这篇文章其实像是一个coarse to fine的cascade模型，直接先看网络模型吧<br><img src="https://cl.ly/3P261n1t023f/Depth%20Map%20Prediction%20from%20a%20Single%20Image.png" alt="Depth Map Prediction from a Single Image using a Multi-Scale Deep Network"><br>就是把第一层网络的coarse输出拼接到第二层的网络上去。<br>然后作者提出一种缩放尺度不变的mean square error做回归<br>\begin{align}<br>D(y,y^*) &amp;= \frac{1}{2n^2}\sum_{i,j}((logy_i-logy_j)-(logy_i^*-logy_j^*))^2 \\<br>&amp;= \frac{1}{n}\sum_id_i^2-\frac{1}{n^2}\sum_{i,j}d_id_j\\<br>&amp;= \frac{1}{n}\sum_id_i^2-\frac{1}{n^2}\left(\sum_id_i\right)^2<br>\end{align}<br>其中，$y$是预测的值，$y^*$是ground truth，$d_i=logy_i-logy_i^*$<br>这样子，为了得到小的loss，预测的深度图像中每一对像素值之差应该与ground truth之间的差不多。然而个人觉得，这个loss其实会造成整体的灰度与ground truth之间有一定的差别，从作者给出的训练结果可以看出这一点<br><img src="https://cl.ly/0N3S3S373H44/Depth%20Map%20Prediction%20from%20a%20Single%20Image_2.png" alt="Depth Map Prediction from a Single Image using a Multi-Scale Deep Network_2"><br>(a)是原图，(b)是第一层网络的coarse输出，(c)是第二层网络的fine输出，(d)是ground truth<p></p>
-<p></p><h2>2. Deep Convolutional Neural Fields for Depth Estimation from a Single Image_CVPR15</h2><br>还是先看网络架构<br><img src="https://cl.ly/3X3T1a3G3X1o/Deep%20Convolutional%20Neural%20Fields%20for%20Depth%20Estimation%20from%20a%20Single%20Image_1.png" alt="Deep Convolutional Neural Fields for Depth Estimation from a Single Image_1"><br>作者先把图片用SLIC算法分割成超像素，对于每个超像素，以那个超像素的中心为中心取一个224*224的块，输入到深度网络中得到预测值$z_p$，算回归loss，$\sum U(y_p,x)=\sum(y_p-z_p)^2$；对于相邻的超像素块，还会计算它们的$K$种相似度【文中用了3种：颜色差，颜色直方图差和LBP特征，$S_{pq}^{(k)}=e^{-\gamma|s_p^{(k)}-s_q^{(k)}}|$】，这些特征通过一个全连接层，得到$R_{pq}$，算pairwise loss$\sum V(y_p,y_q,x)=\sum\frac{1}{2}R_{pq}(y_p-y_q)^2$，这个loss是为了约束相似的超像素块具有相近的深度值。这两者合起来当成一个CRF loss。这个loss形式简单，所以是有close form solution的，可以直接求导。<br>作者用这种超像素分割的方法的弊端在于最后的预测结果也是像超像素一样分成一块一块的<br><img src="https://cl.ly/0w3M1r431O27/Deep%20Convolutional%20Neural%20Fields%20for%20Depth%20Estimation%20from%20a%20Single%20Image_2.png" alt="Deep Convolutional Neural Fields for Depth Estimation from a Single Image_2"><br>还有一点就是用CRF可能会过度平滑预测结果<br><img src="https://cl.ly/3k2Q3l233T1h/Deep%20Convolutional%20Neural%20Fields%20for%20Depth%20Estimation%20from%20a%20Single%20Image_3.png" alt="Deep Convolutional Neural Fields for Depth Estimation from a Single Image_3"><p></p>
-<p></p><h2>3. Estimating Depth from Monocular Images as Classification Using Deep Fully Convolutional Residual Networks_arxiv16</h2><br>这篇文章的思想就更简单了，直接借鉴从物体分割的思想【Semantic image segmentation with deep convolutional nets and fully connected crfs】，quantize深度图像，转化成分类问题，然后用crf做后处理<br>虽然作者在loss函数里加了infogain matrix和bootstrapping的参数，然后从实验结果上看几乎没有影响。<br>用CRF优化可能会过度平滑的问题在这篇文章的结果里也体现出来了<br><img src="https://cl.ly/2m433o3R4246/Estimating%20Depth%20from%20Monocular%20Images%20as%20Classification%20Using%20Deep%20Fully%20Convolutional%20Residual%20Networks_1.png" alt="Estimating Depth from Monocular Images as Classification Using Deep Fully Convolutional Residual Networks_1"><br><img src="https://cl.ly/3D3L3d2z0l3o/Estimating%20Depth%20from%20Monocular%20Images%20as%20Classification%20Using%20Deep%20Fully%20Convolutional%20Residual%20Networks_2.png" alt="Estimating Depth from Monocular Images as Classification Using Deep Fully Convolutional Residual Networks_2"><br>目前还没有看到像dialted convolution之类的工作引入进来，另外从这篇文章以及个人经验来看，分类貌似总是比回归要好，用mse来做回归貌似经常不妥当。<p></p>
+<hr>
+<p>在机器学习里，我们常常要求解像$P_{\Theta}(X)=\int P_{\Theta}(X|Z)P_{\Theta}(Z)dZ$这样的似然模型，其中$Z$是隐变量。为了求解这样的模型，如果$Z$的后验分布$P(Z|X,\Theta)$是tractable的，那么我们可以用EM算法来求解；否则，一种常用的方法就是用变分贝叶斯【VB】，用形式简单的分布$Q(Z)$去近似$P(Z|X,\Theta)$。<br>    在<a href="https://jiqiujia.github.io/2016/09/10/Variational-Inference/" target="_blank" rel="external">VB</a>里，我们是将似然函数分解成一个lower bound加上近似分布与真实后验分布的KL距离，即：<br>\begin{align}<br>lnP_{\Theta}(X) &amp;= E_{Q_{\Phi}(Z|X)}[-lnQ_{\Phi}(Z|X)+lnP_{\Theta}(X,Z)] + D_{KL}(Q_{\Phi}(Z|X)||P_{\Theta}(Z|X)) \\<br>&amp;\ge E_{Q_{\Phi}(Z|X)}[-lnQ_{\Phi}(Z|X)+lnP_{\Theta}(X,Z)] \\<br>&amp;= -D_{KL}(Q_{\Phi}(Z|X)||P_{\Theta}(Z)) + E_{Q_{\Phi}(Z|X)}[lnP_{\Theta}(X|Z)] \\<br>&amp;= \mathcal{L}(X;\Theta, \Phi)<br>\end{align}<br>在VAE里，我们通过优化这个下界，求解我们的极大似然模型，所以这也就是网络的loss函数。其中，第一项就是约束后验分布与先验分布之间的距离；第二项其实就是给定隐含层表示，重构出$X$的期望，所以这一项可以用传统Autoencoder里的重构误差来代替。<br>然而，直接蒙特卡洛【minibatch】做梯度估计的variance会比较大，所以作者提出了一个reparameterization trick: 将随机变量$\tilde{z} \sim Q_{\Phi}(Z|X)$用一个可导的确定性转换$g_{\phi}(\epsilon,X)$来表示，其中$\epsilon$是一个随机变量，即：<br>\begin{equation}<br>\tilde{z} \sim g_{\phi}(\epsilon,X), \quad \epsilon \sim p(\epsilon)<br>\end{equation}<br>经过这样子的转换后，我们用蒙特卡洛估计某个函数对$Q_{\Phi}(Z|X)$的期望就可以转换成对$p(\epsilon)$求期望：<br>\begin{align}<br>E_{Q_{\Phi}(Z|X)}[f(z)]=E_{p(\epsilon)}[f(g_{\phi}(\epsilon,X))]\simeq\frac{1}{L}\sum_{l=1}^{L}f(g_{\phi}(\epsilon^{(l)},X))\quad where \quad \epsilon^{(l)} \sim p(\epsilon)<br>\end{align}<br>比如$z\sim Q(Z|X)=\mathcal{N}(\mu, \sigma^2)$，那么一个reparameterization的方法就是让$z=\mu+\sigma*\epsilon，where\ \epsilon\sim \mathcal{N}(0,1)$。用下图来表示reparameterization之前和之后的差别<br><img src="https://cl.ly/281x2Y3W1l0I/Image%202016-11-18%20at%209.31.19%20AM.png" alt="reparameterization"><br>在上图中，使用了$\mathcal{N}(0,1)$作为先验分布，因为理论上，经过足够复杂的变换后，标准正态分布能够映射成相同维度下任意的分布。<br>$g_{\Phi}$可以根据以下三个条件来选择<br><img src="https://cl.ly/0y2I350E3820/Image%202016-11-18%20at%209.32.55%20AM.png" alt="g_phi"><br>所以Auto-Encoding VB的训练算法如下<br><img src="https://cl.ly/2D3X411r3g3a/Image%202016-11-18%20at%209.05.12%20AM.png" alt="AEVB algorithm"></p>
+<hr>
+<h2>Solution of KL, Gaussian case</h2>
+
+<p>下面给出$Q_{\Phi}$和$P(Z)$在高斯情况下的KL熵解析形式，其中$J$是$Z$的维度：<br>\begin{align}<br>\int Q_{\Phi}(Z)logP_{\Theta}(Z)dz &amp;= \int \mathcal{N}(Z;\mu, \sigma^2)log\mathcal{N}(Z;0,I)dz \\<br>&amp;= -\frac{J}{2}log(2\pi)-\frac{1}{2}\sum_{j=1}^{J}(\mu_j^2+\sigma_j^2)<br>\end{align}<br>\begin{align}<br>\int Q_{\Phi}(Z)logQ_{\Phi}(Z)dz &amp;= \int \mathcal{N}(Z;\mu, \sigma^2)log\mathcal{N}(Z;\mu, \sigma^2)dz \\<br>&amp;= -\frac{J}{2}log(2\pi)-\frac{1}{2}\sum_{j=1}^{J}(1+\sigma_j^2)<br>\end{align}<br>所以：<br>\begin{align}<br>-D_{KL}(Q_{\Phi}(Z)||P_\Theta(Z)=\frac{1}{2}\sum_{j=1}^{L}(1+log(\sigma_j^2)-\mu_j^2-\sigma_j^2)<br>\end{align}</p>
+<hr>
+<p></p><h2>Marginal likelihood estimator</h2><br>估计生成模型$p_{\theta}(x,z)=p_{\theta}p_{\theta}(x|z)$的边缘分布$p_{\theta}(x^{(i)})$<br><img src="https://cl.ly/0D2E2z0N2g3V/Image%202016-11-18%20at%2010.10.29%20AM.png" alt="marginal likelihood estimator"><p></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/17/Depth-Map-Prediction/" data-id="civn67r9r0002y0cvbapxaq5r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/18/Auto-Encoding-Variational-Bayes-iclr14/" data-id="civn6a7xz0000kgcvq6evnk18" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DepthMap/">DepthMap</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bayesian/">Bayesian</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DL/">DL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ICLR/">ICLR</a></li></ul>
 
     </footer>
   </div>
@@ -117,19 +115,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/11/18/Auto-Encoding-Variational-Bayes-iclr14/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Auto-Encoding Variational Bayes_iclr14
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/09/15/Gaussian-distribution/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/09/17/Depth-Map-Prediction/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Gaussian distribution</div>
+      <div class="article-nav-title">Depth Map Prediction</div>
     </a>
   
 </nav>

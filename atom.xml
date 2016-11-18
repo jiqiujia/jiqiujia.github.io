@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-09-17T07:09:26.024Z</updated>
+  <updated>2016-11-18T02:34:17.425Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,40 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Auto-Encoding Variational Bayes_iclr14</title>
+    <link href="http://yoursite.com/2016/11/18/Auto-Encoding-Variational-Bayes-iclr14/"/>
+    <id>http://yoursite.com/2016/11/18/Auto-Encoding-Variational-Bayes-iclr14/</id>
+    <published>2016-11-18T02:16:18.000Z</published>
+    <updated>2016-11-18T02:34:17.425Z</updated>
+    
+    <content type="html"><![CDATA[<p>这是一篇不可多得的好文章，将无监督的深度生成模型与变分贝叶斯模型结合在一起。它包含两部分，一部分是probabilistic encoder $Q_{\Phi}(Z|X)$，用来近似真实的后验分布$P_{\Theta}(Z|X)$，将输入$X$映射到隐含层编码$Z$；另一部分是生成模型$P_{\Theta}(X|Z)$【decoder】，用隐含层的表示重构输入$X$</p>
+<a id="more"></a>
+<hr>
+<p>在机器学习里，我们常常要求解像$P_{\Theta}(X)=\int P_{\Theta}(X|Z)P_{\Theta}(Z)dZ$这样的似然模型，其中$Z$是隐变量。为了求解这样的模型，如果$Z$的后验分布$P(Z|X,\Theta)$是tractable的，那么我们可以用EM算法来求解；否则，一种常用的方法就是用变分贝叶斯【VB】，用形式简单的分布$Q(Z)$去近似$P(Z|X,\Theta)$。<br>    在<a href="https://jiqiujia.github.io/2016/09/10/Variational-Inference/" target="_blank" rel="external">VB</a>里，我们是将似然函数分解成一个lower bound加上近似分布与真实后验分布的KL距离，即：<br>\begin{align}<br>lnP_{\Theta}(X) &amp;= E_{Q_{\Phi}(Z|X)}[-lnQ_{\Phi}(Z|X)+lnP_{\Theta}(X,Z)] + D_{KL}(Q_{\Phi}(Z|X)||P_{\Theta}(Z|X)) \\<br>&amp;\ge E_{Q_{\Phi}(Z|X)}[-lnQ_{\Phi}(Z|X)+lnP_{\Theta}(X,Z)] \\<br>&amp;= -D_{KL}(Q_{\Phi}(Z|X)||P_{\Theta}(Z)) + E_{Q_{\Phi}(Z|X)}[lnP_{\Theta}(X|Z)] \\<br>&amp;= \mathcal{L}(X;\Theta, \Phi)<br>\end{align}<br>在VAE里，我们通过优化这个下界，求解我们的极大似然模型，所以这也就是网络的loss函数。其中，第一项就是约束后验分布与先验分布之间的距离；第二项其实就是给定隐含层表示，重构出$X$的期望，所以这一项可以用传统Autoencoder里的重构误差来代替。<br>然而，直接蒙特卡洛【minibatch】做梯度估计的variance会比较大，所以作者提出了一个reparameterization trick: 将随机变量$\tilde{z} \sim Q_{\Phi}(Z|X)$用一个可导的确定性转换$g_{\phi}(\epsilon,X)$来表示，其中$\epsilon$是一个随机变量，即：<br>\begin{equation}<br>\tilde{z} \sim g_{\phi}(\epsilon,X), \quad \epsilon \sim p(\epsilon)<br>\end{equation}<br>经过这样子的转换后，我们用蒙特卡洛估计某个函数对$Q_{\Phi}(Z|X)$的期望就可以转换成对$p(\epsilon)$求期望：<br>\begin{align}<br>E_{Q_{\Phi}(Z|X)}[f(z)]=E_{p(\epsilon)}[f(g_{\phi}(\epsilon,X))]\simeq\frac{1}{L}\sum_{l=1}^{L}f(g_{\phi}(\epsilon^{(l)},X))\quad where \quad \epsilon^{(l)} \sim p(\epsilon)<br>\end{align}<br>比如$z\sim Q(Z|X)=\mathcal{N}(\mu, \sigma^2)$，那么一个reparameterization的方法就是让$z=\mu+\sigma*\epsilon，where\ \epsilon\sim \mathcal{N}(0,1)$。用下图来表示reparameterization之前和之后的差别<br><img src="https://cl.ly/281x2Y3W1l0I/Image%202016-11-18%20at%209.31.19%20AM.png" alt="reparameterization"><br>在上图中，使用了$\mathcal{N}(0,1)$作为先验分布，因为理论上，经过足够复杂的变换后，标准正态分布能够映射成相同维度下任意的分布。<br>$g_{\Phi}$可以根据以下三个条件来选择<br><img src="https://cl.ly/0y2I350E3820/Image%202016-11-18%20at%209.32.55%20AM.png" alt="g_phi"><br>所以Auto-Encoding VB的训练算法如下<br><img src="https://cl.ly/2D3X411r3g3a/Image%202016-11-18%20at%209.05.12%20AM.png" alt="AEVB algorithm"></p>
+<hr>
+<h2>Solution of KL, Gaussian case</h2>
+
+<p>下面给出$Q_{\Phi}$和$P(Z)$在高斯情况下的KL熵解析形式，其中$J$是$Z$的维度：<br>\begin{align}<br>\int Q_{\Phi}(Z)logP_{\Theta}(Z)dz &amp;= \int \mathcal{N}(Z;\mu, \sigma^2)log\mathcal{N}(Z;0,I)dz \\<br>&amp;= -\frac{J}{2}log(2\pi)-\frac{1}{2}\sum_{j=1}^{J}(\mu_j^2+\sigma_j^2)<br>\end{align}<br>\begin{align}<br>\int Q_{\Phi}(Z)logQ_{\Phi}(Z)dz &amp;= \int \mathcal{N}(Z;\mu, \sigma^2)log\mathcal{N}(Z;\mu, \sigma^2)dz \\<br>&amp;= -\frac{J}{2}log(2\pi)-\frac{1}{2}\sum_{j=1}^{J}(1+\sigma_j^2)<br>\end{align}<br>所以：<br>\begin{align}<br>-D_{KL}(Q_{\Phi}(Z)||P_\Theta(Z)=\frac{1}{2}\sum_{j=1}^{L}(1+log(\sigma_j^2)-\mu_j^2-\sigma_j^2)<br>\end{align}</p>
+<hr>
+<p></p><h2>Marginal likelihood estimator</h2><br>估计生成模型$p_{\theta}(x,z)=p_{\theta}p_{\theta}(x|z)$的边缘分布$p_{\theta}(x^{(i)})$<br><img src="https://cl.ly/0D2E2z0N2g3V/Image%202016-11-18%20at%2010.10.29%20AM.png" alt="marginal likelihood estimator"><p></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这是一篇不可多得的好文章，将无监督的深度生成模型与变分贝叶斯模型结合在一起。它包含两部分，一部分是probabilistic encoder $Q_{\Phi}(Z|X)$，用来近似真实的后验分布$P_{\Theta}(Z|X)$，将输入$X$映射到隐含层编码$Z$；另一部分是生成模型$P_{\Theta}(X|Z)$【decoder】，用隐含层的表示重构输入$X$&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Bayesian" scheme="http://yoursite.com/tags/Bayesian/"/>
+    
+      <category term="ICLR" scheme="http://yoursite.com/tags/ICLR/"/>
+    
+      <category term="DL" scheme="http://yoursite.com/tags/DL/"/>
+    
+  </entry>
   
   <entry>
     <title>Depth Map Prediction</title>
