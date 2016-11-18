@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-11-18T02:34:17.425Z</updated>
+  <updated>2016-11-18T05:02:35.295Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2016/11/18/Auto-Encoding-Variational-Bayes-iclr14/"/>
     <id>http://yoursite.com/2016/11/18/Auto-Encoding-Variational-Bayes-iclr14/</id>
     <published>2016-11-18T02:16:18.000Z</published>
-    <updated>2016-11-18T02:34:17.425Z</updated>
+    <updated>2016-11-18T05:02:35.295Z</updated>
     
     <content type="html"><![CDATA[<p>这是一篇不可多得的好文章，将无监督的深度生成模型与变分贝叶斯模型结合在一起。它包含两部分，一部分是probabilistic encoder $Q_{\Phi}(Z|X)$，用来近似真实的后验分布$P_{\Theta}(Z|X)$，将输入$X$映射到隐含层编码$Z$；另一部分是生成模型$P_{\Theta}(X|Z)$【decoder】，用隐含层的表示重构输入$X$</p>
 <a id="more"></a>
@@ -39,6 +39,8 @@
       &lt;p&gt;这是一篇不可多得的好文章，将无监督的深度生成模型与变分贝叶斯模型结合在一起。它包含两部分，一部分是probabilistic encoder $Q_{\Phi}(Z|X)$，用来近似真实的后验分布$P_{\Theta}(Z|X)$，将输入$X$映射到隐含层编码$Z$；另一部分是生成模型$P_{\Theta}(X|Z)$【decoder】，用隐含层的表示重构输入$X$&lt;/p&gt;
     
     </summary>
+    
+      <category term="PaperNotes" scheme="http://yoursite.com/categories/PaperNotes/"/>
     
     
       <category term="Bayesian" scheme="http://yoursite.com/tags/Bayesian/"/>
